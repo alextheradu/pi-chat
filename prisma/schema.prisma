@@ -198,7 +198,9 @@ model GroupDMMessage {
   updatedAt DateTime @updatedAt
 
   group     GroupDM  @relation(fields: [groupId], references: [id], onDelete: Cascade)
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Restrict)
+
+  @@index([groupId, createdAt])
 }
 
 model PinnedMessage {
