@@ -28,6 +28,7 @@ model User {
   dmsSent             DirectMessage[]    @relation("DMSender")
   dmsReceived         DirectMessage[]    @relation("DMReceiver")
   groupDMMembers      GroupDMMember[]
+  groupDMMessages     GroupDMMessage[]
   pushSubscriptions   PushSubscription[]
   auditLogs           AuditLog[]
   taskAssignments     Task[]             @relation("TaskAssignee")
@@ -139,8 +140,10 @@ model DirectMessage {
   senderId   String
   receiverId String
   isRead     Boolean  @default(false)
+  isEdited   Boolean  @default(false)
   isDeleted  Boolean  @default(false)
   createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   sender      User            @relation("DMSender", fields: [senderId], references: [id])
   receiver    User            @relation("DMReceiver", fields: [receiverId], references: [id])
@@ -165,6 +168,7 @@ model GroupDM {
   createdAt DateTime @default(now())
 
   members   GroupDMMember[]
+  messages  GroupDMMessage[]
 }
 
 model GroupDMMember {
@@ -176,6 +180,20 @@ model GroupDMMember {
   user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([groupId, userId])
+}
+
+model GroupDMMessage {
+  id        String   @id @default(cuid())
+  content   String
+  groupId   String
+  authorId  String
+  isEdited  Boolean  @default(false)
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  group     GroupDM  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  author    User     @relation(fields: [authorId], references: [id])
 }
 
 model PinnedMessage {
