@@ -1,26 +1,107 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Base surfaces */
+    --bg-base:     #0c0c0e;
+    --bg-surface:  #111115;
+    --bg-elevated: #18181f;
+    --bg-hover:    #1e1e26;
+    --bg-active:   #222230;
+
+    /* Borders */
+    --border-subtle:  #1a1a22;
+    --border-default: #2a2a34;
+    --border-strong:  #3a3a48;
+
+    /* Text */
+    --text-primary:   #f0f0f4;
+    --text-secondary: #8b8b9a;
+    --text-muted:     #52525e;
+    --text-inverse:   #0c0c0e;
+
+    /* Brand — Team 1676 Yellow */
+    --yellow:        #f5c518;
+    --yellow-hover:  #fcd73a;
+    --yellow-dim:    rgba(245, 197, 24, 0.12);
+    --yellow-border: rgba(245, 197, 24, 0.25);
+    --yellow-glow:   rgba(245, 197, 24, 0.06);
+
+    /* Semantic */
+    --success:  #22c55e;
+    --warning:  #f59e0b;
+    --error:    #ef4444;
+
+    /* Presence */
+    --online:   #22c55e;
+    --away:     #f59e0b;
+    --dnd:      #ef4444;
+    --offline:  #3a3a48;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 1ms !important;
+      transition-duration: 1ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Skeleton shimmer animation */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bg-elevated) 25%,
+    var(--bg-hover)    50%,
+    var(--bg-elevated) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Typing indicator dots */
+@keyframes typing-dot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* @mention highlight */
+.mention {
+  background: var(--yellow-dim);
+  color: var(--yellow);
+  border-radius: 3px;
+  padding: 0 3px;
+  font-weight: 500;
+}
+
+.mention-self {
+  background: var(--yellow-dim);
+  color: var(--yellow);
+  border-left: 2px solid var(--yellow);
+}
+
+/* Mobile nav */
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: block !important;
+  }
 }
