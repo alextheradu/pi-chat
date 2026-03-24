@@ -1,6 +1,6 @@
 import { Role } from '@prisma/client'
 
-const PERMISSIONS = {
+export const PERMISSIONS = {
   'message:send':                   ['ADMIN', 'MODERATOR', 'SUBDIVISION_LEAD', 'MEMBER', 'GUEST'],
   'message:send:announcement':      ['ADMIN', 'MODERATOR'],
   'message:delete:own':             ['ADMIN', 'MODERATOR', 'SUBDIVISION_LEAD', 'MEMBER'],
@@ -34,6 +34,6 @@ export function hasPermission(role: Role, permission: Permission): boolean {
 
 export function requirePermission(role: Role, permission: Permission): void {
   if (!hasPermission(role, permission)) {
-    throw new Error(`Permission denied: ${permission}`)
+    throw new Error(`Permission denied: role ${role} does not have ${permission}`)
   }
 }
