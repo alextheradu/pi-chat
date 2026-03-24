@@ -98,7 +98,7 @@ model Message {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 
-  author      User           @relation(fields: [authorId], references: [id])
+  author      User           @relation(fields: [authorId], references: [id], onDelete: Restrict)
   channel     Channel        @relation(fields: [channelId], references: [id], onDelete: Cascade)
   attachments Attachment[]
   reactions   Reaction[]
@@ -107,6 +107,8 @@ model Message {
   pinned      PinnedMessage?
   poll        Poll?
   linkPreviews LinkPreview[]
+
+  @@index([channelId, createdAt])
 }
 
 model Attachment {
@@ -145,9 +147,12 @@ model DirectMessage {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  sender      User            @relation("DMSender", fields: [senderId], references: [id])
-  receiver    User            @relation("DMReceiver", fields: [receiverId], references: [id])
+  sender      User            @relation("DMSender", fields: [senderId], references: [id], onDelete: Restrict)
+  receiver    User            @relation("DMReceiver", fields: [receiverId], references: [id], onDelete: Restrict)
   attachments DMAttachment[]
+
+  @@index([senderId, createdAt])
+  @@index([receiverId, createdAt])
 }
 
 model DMAttachment {

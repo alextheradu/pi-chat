@@ -16,4 +16,5 @@ function createPrismaClient() {
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient()
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+// Always cache — Pi-Chat runs as a persistent Node process, not serverless
+globalForPrisma.prisma = prisma
