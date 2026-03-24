@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { JetBrains_Mono, DM_Sans } from 'next/font/google'
 import './globals.css'
+import { Providers } from './providers'
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -33,9 +34,10 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${jetbrainsMono.variable} ${dmSans.variable}`}
+      suppressHydrationWarning
     >
       <body style={{ background: 'var(--bg-base)' }}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

@@ -1,7 +1,48 @@
 @import "tailwindcss";
 
+/* ─── shadcn/ui design tokens (Tailwind v4 @theme) ─────────────────────────
+   In Tailwind v4, bg-primary → --color-primary, text-foreground →
+   --color-foreground, border-border → --color-border, ring-ring →
+   --color-ring, etc. These MUST be declared in @theme so Tailwind registers
+   them as color utilities. Values map to the Pi-Chat Precision Dark palette.
+──────────────────────────────────────────────────────────────────────────── */
+@theme inline {
+  --color-background:             oklch(from #0c0c0e l c h);
+  --color-foreground:             oklch(from #f0f0f4 l c h);
+
+  --color-card:                   oklch(from #141420 l c h);
+  --color-card-foreground:        oklch(from #f0f0f4 l c h);
+
+  --color-popover:                oklch(from #1a1a28 l c h);
+  --color-popover-foreground:     oklch(from #f0f0f4 l c h);
+
+  --color-primary:                oklch(from #f5c518 l c h);
+  --color-primary-foreground:     oklch(from #0c0c0e l c h);
+
+  --color-secondary:              oklch(from #1e1e2e l c h);
+  --color-secondary-foreground:   oklch(from #8b8b9a l c h);
+
+  --color-muted:                  oklch(from #1a1a28 l c h);
+  --color-muted-foreground:       oklch(from #52525e l c h);
+
+  --color-accent:                 oklch(from #222230 l c h);
+  --color-accent-foreground:      oklch(from #f0f0f4 l c h);
+
+  --color-destructive:            oklch(from #ef4444 l c h);
+  --color-destructive-foreground: oklch(from #f0f0f4 l c h);
+
+  --color-border:                 oklch(from #2a2a34 l c h);
+  --color-input:                  oklch(from #1e1e2e l c h);
+  --color-ring:                   oklch(from #f5c518 l c h);
+}
+
 @layer base {
   :root {
+    /* --radius: used directly in component class expressions via calc(),
+       e.g. rounded-[calc(var(--radius)-3px)] in input-group.tsx and
+       --border-radius: var(--radius) in sonner.tsx */
+    --radius: 0.5rem;
+
     /* Base surfaces */
     --bg-base:     #0c0c0e;
     --bg-surface:  #111115;
@@ -57,6 +98,13 @@
     *, *::before, *::after {
       animation-duration: 1ms !important;
       transition-duration: 1ms !important;
+    }
+
+    /* Override: the global 1ms rule leaves .skeleton-shimmer frozen at a
+       mid-gradient position. Disable entirely and show a static surface. */
+    .skeleton-shimmer {
+      animation: none;
+      background: var(--bg-elevated);
     }
   }
 }
