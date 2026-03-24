@@ -4,7 +4,11 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! })
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not set. Ensure .env is present and loaded.')
+}
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
@@ -43,7 +47,7 @@ async function main() {
     },
   })
 
-  // 3. Upsert channels
+  // 3. Upsert channels (update propagates spec changes on re-run)
   const channelData = [
     { name: 'announcements', slug: 'announcements', isAnnouncement: true,  description: 'Official team announcements. Read-only for members.' },
     { name: 'general',       slug: 'general',       description: 'General team discussion' },
@@ -60,15 +64,23 @@ async function main() {
   const channels: { id: string }[] = []
   for (const ch of channelData) {
     const { subdivisionName, ...channelFields } = ch as typeof ch & { subdivisionName?: string }
+    const isPrivate = (ch as { isPrivate?: boolean }).isPrivate ?? false
+    const isAnnouncement = (ch as { isAnnouncement?: boolean }).isAnnouncement ?? false
+    const subdivisionId = subdivisionName ? subdivisions[subdivisionName]?.id ?? null : null
     const result = await prisma.channel.upsert({
       where: { slug: ch.slug },
-      update: {},
+      update: {
+        ...channelFields,
+        isPrivate,
+        isAnnouncement,
+        subdivisionId,
+      },
       create: {
         ...channelFields,
-        isPrivate: (ch as { isPrivate?: boolean }).isPrivate ?? false,
-        isAnnouncement: (ch as { isAnnouncement?: boolean }).isAnnouncement ?? false,
+        isPrivate,
+        isAnnouncement,
         createdById: admin.id,
-        subdivisionId: subdivisionName ? subdivisions[subdivisionName]?.id ?? null : null,
+        subdivisionId,
       },
     })
     channels.push(result)
@@ -83,14 +95,19 @@ async function main() {
     })
   }
 
-  // 5. Audit log entry
-  await prisma.auditLog.create({
-    data: {
-      actorId: admin.id,
-      action: 'SYSTEM_INIT',
-      metadata: { seededAt: new Date().toISOString() },
-    },
+  // 5. Audit log entry (idempotent — only creates on first run)
+  const alreadySeeded = await prisma.auditLog.findFirst({
+    where: { action: 'SYSTEM_INIT' },
   })
+  if (!alreadySeeded) {
+    await prisma.auditLog.create({
+      data: {
+        actorId: admin.id,
+        action: 'SYSTEM_INIT',
+        metadata: { seededAt: new Date().toISOString() },
+      },
+    })
+  }
 
   console.log('Seed complete.')
 }
