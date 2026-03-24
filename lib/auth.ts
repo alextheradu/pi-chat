@@ -9,6 +9,9 @@ const ALLOWED_DOMAIN = process.env.ALLOWED_DOMAIN ?? 'pascack.org'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma as any),
+  // jwt strategy required — without it, PrismaAdapter defaults to database
+  // sessions and the jwt/session callbacks are never invoked
+  session: { strategy: 'jwt' },
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -26,26 +29,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       // Allow @pascack.org domain
       if (email.endsWith(`@${ALLOWED_DOMAIN}`)) {
-        // Ensure user record exists and set approval
+        const isAdmin = email === ADMIN_EMAIL
         await prisma.user.upsert({
           where: { email },
-          update: {},
+          // On re-login: keep role/approval current (important for admin promotion)
+          update: {
+            role: isAdmin ? Role.ADMIN : undefined,
+            isApproved: isAdmin ? true : undefined,
+          },
           create: {
             email,
             name: user.name ?? email.split('@')[0] ?? email,
             displayName: user.name ?? email.split('@')[0] ?? email,
             avatarUrl: user.image ?? null,
-            role: email === ADMIN_EMAIL ? Role.ADMIN : Role.MEMBER,
+            role: isAdmin ? Role.ADMIN : Role.MEMBER,
             isApproved: true,
           },
         })
-        // Enforce admin role for bootstrap admin
-        if (email === ADMIN_EMAIL) {
-          await prisma.user.update({
-            where: { email },
-            data: { role: Role.ADMIN, isApproved: true },
-          })
-        }
         return true
       }
 
@@ -72,6 +72,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           isApproved: false, // admin must approve
         },
       })
+
+      // Consume invite — mark as used
+      await prisma.invite.update({
+        where: { id: invite.id },
+        data: { usedAt: new Date() },
+      })
+
       return true
     },
 
