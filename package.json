@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "ts-node --project tsconfig.server.json server/index.ts",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node dist/server/index.js",
     "lint": "eslint"
   },
   "dependencies": {
@@ -58,6 +58,7 @@
     "react-hook-form": "^7.72.0",
     "shadcn": "^4.1.0",
     "sharp": "^0.34.5",
+    "socket.io": "^4.8.3",
     "socket.io-client": "^4.8.3",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
