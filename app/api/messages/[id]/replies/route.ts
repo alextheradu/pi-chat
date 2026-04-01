@@ -17,9 +17,15 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   })
 
   const parent = await prisma.message.findUnique({
-    where: { id: parentId },
+    where: { id: parentId, isDeleted: false },
     include: { author: { select: { id: true, name: true, displayName: true, avatarUrl: true, role: true } } },
   })
+  if (!parent) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+
+  const membership = await prisma.channelMember.findUnique({
+    where: { userId_channelId: { userId: session.user.id, channelId: parent.channelId } },
+  })
+  if (!membership) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   return NextResponse.json({ parent, replies })
 }

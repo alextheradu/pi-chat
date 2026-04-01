@@ -29,6 +29,10 @@ export function SearchModal() {
     return () => window.removeEventListener('keydown', handler)
   }, [setSearchOpen])
 
+  useEffect(() => {
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [])
+
   const search = useCallback((q: string) => {
     if (q.length < 2) { setResults(null); return }
     setLoading(true)

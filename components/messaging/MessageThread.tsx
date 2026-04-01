@@ -24,10 +24,12 @@ export function MessageThread({ parentId, channelId, currentUserId, currentUserR
 
   useEffect(() => {
     if (!parentId) return
-    fetch(`/api/messages/${parentId}/replies`)
+    const controller = new AbortController()
+    fetch(`/api/messages/${parentId}/replies`, { signal: controller.signal })
       .then(r => r.json() as Promise<{ parent: Message; replies: Message[] }>)
       .then(data => { setParent(data.parent); setReplies(data.replies) })
-      .catch(console.error)
+      .catch(e => { if ((e as Error).name !== 'AbortError') console.error(e) })
+    return () => controller.abort()
   }, [parentId])
 
   return (
@@ -71,7 +73,7 @@ export function MessageThread({ parentId, channelId, currentUserId, currentUserR
             ))}
           </div>
 
-          <MessageComposer channelId={channelId} placeholder="Reply in thread..." />
+          <MessageComposer channelId={channelId} threadId={parentId ?? undefined} placeholder="Reply in thread..." />
         </motion.aside>
       )}
     </AnimatePresence>
