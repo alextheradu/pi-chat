@@ -28,7 +28,7 @@
 | `app/(auth)/login/page.tsx` | Login page |
 | `app/api/auth/[...nextauth]/route.ts` | NextAuth route handler |
 | `app/api/health/route.ts` | Health check endpoint |
-| `docker-compose.yml` | postgres + minio services only (app/nginx separate) |
+| `docker-compose.dev.yml` | postgres + minio dev services only (app runs separately) |
 | `.env.example` | All required env vars |
 
 ---
@@ -292,7 +292,7 @@ git commit -m "feat: add design system CSS variables, fonts, and shadcn/ui compo
 
 ```env
 # ── Next.js ────────────────────────────────────────────────────
-NEXTAUTH_URL=https://chat.team1676.com
+NEXTAUTH_URL=https://chat.team1676.org
 NEXTAUTH_SECRET=                         # openssl rand -base64 32
 
 # ── Google OAuth ───────────────────────────────────────────────
@@ -319,9 +319,9 @@ VAPID_PRIVATE_KEY=
 VAPID_SUBJECT=mailto:admin@team1676.org
 NEXT_PUBLIC_VAPID_PUBLIC_KEY=
 
-# ── Socket.io ──────────────────────────────────────────────────
-NEXT_PUBLIC_SOCKET_URL=http://localhost:3001
-SOCKET_PORT=3001
+# ── Socket.io (same origin as Next.js — no separate port) ──────
+# In dev: http://localhost:3000  |  In prod: https://chat.team1676.org
+NEXT_PUBLIC_SOCKET_URL=http://localhost:3000
 
 # ── App config ─────────────────────────────────────────────────
 NEXT_PUBLIC_APP_URL=http://localhost:3000

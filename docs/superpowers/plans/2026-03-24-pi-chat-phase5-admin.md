@@ -512,7 +512,7 @@ export async function POST(req: NextRequest) {
         inviteToken: invite.token,
         invitedByName: invite.invitedBy.displayName ?? invite.invitedBy.name,
         role,
-        appUrl: process.env.NEXT_PUBLIC_APP_URL ?? 'https://chat.team1676.com',
+        appUrl: process.env.NEXT_PUBLIC_APP_URL ?? 'https://chat.team1676.org',
       })
     } catch (err) {
       console.error('Failed to send invite email:', err)

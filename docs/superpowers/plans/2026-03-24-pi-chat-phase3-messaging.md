@@ -4,7 +4,7 @@
 
 **Goal:** Build the full real-time messaging system — Socket.io server, MessageList with virtualization, MessageItem with rich content rendering (DOMPurify-sanitized), MessageComposer with Tiptap, TypingIndicator, and Reactions.
 
-**Architecture:** A standalone Express + Socket.io server runs on port 3001 alongside Next.js on port 3000. Next.js uses REST for initial message load (cursor pagination via TanStack Query). Socket.io pushes all real-time events. The client socket singleton reconnects automatically and falls back to polling on disconnect.
+**Architecture:** Socket.io is combined with Next.js in a single custom Node.js server (`server/index.ts`) running on port 3000 (mapped to 3014 in production). No separate socket server or port — both Next.js requests and WebSocket upgrades are handled by the same `http.Server`. Nginx Proxy Manager proxies `chat.team1676.org` → port 3014 with WebSocket support enabled. Next.js uses REST for initial message load (cursor pagination via TanStack Query). Socket.io pushes all real-time events. The client socket singleton reconnects automatically and falls back to polling on disconnect.
 
 **Security:** All user-generated HTML is sanitized with DOMPurify before rendering. The `dangerouslySetInnerHTML` prop is only ever called with DOMPurify-cleaned strings. Zero XSS risk from message content.
 
@@ -18,7 +18,7 @@
 
 | File | Purpose |
 |------|---------|
-| `server/socket-server.ts` | Standalone Express + Socket.io server (port 3001) |
+| `server/index.ts` | Combined Next.js + Socket.io custom server (single port 3000) |
 | `lib/socket-client.ts` | Browser Socket.io singleton with auto-reconnect |
 | `lib/sanitize.ts` | DOMPurify wrapper — **always use this, never raw dangerouslySetInnerHTML** |
 | `lib/rate-limit.ts` | In-memory rate limiter (30 msg/min per user) |
@@ -39,151 +39,172 @@
 
 ---
 
-## Task 1: Socket.io Server
+## Task 1: Combined Next.js + Socket.io Custom Server
 
 **Files:**
-- Create: `server/socket-server.ts`
+- Create: `server/index.ts`
+
+Socket.io shares the same `http.Server` as Next.js. No Express needed, no separate port. WebSocket upgrades for `/socket.io/` are handled transparently by the combined server.
 
 - [ ] **Step 1: Install server dependencies**
 
 ```bash
-npm install express socket.io @types/express concurrently
+npm install socket.io concurrently ts-node
+npm install --save-dev @types/node
 ```
 
-- [ ] **Step 2: Create `server/socket-server.ts`**
+- [ ] **Step 2: Create `server/index.ts`**
 
 ```typescript
-import express from 'express'
+// server/index.ts
+// Combined Next.js + Socket.io custom server.
+// Binds to PORT (default 3000). In production, mapped to external port 3014.
+// Nginx Proxy Manager proxies chat.team1676.org → :3014 with WebSocket support.
+
 import { createServer } from 'http'
+import { parse } from 'url'
+import next from 'next'
 import { Server } from 'socket.io'
 import { getToken } from 'next-auth/jwt'
 import { prisma } from '../lib/prisma'
 
-const app = express()
-const httpServer = createServer(app)
+const dev = process.env.NODE_ENV !== 'production'
+const hostname = '0.0.0.0'
+const port = parseInt(process.env.PORT ?? '3000')
 
-const io = new Server(httpServer, {
-  cors: {
-    origin: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
-    credentials: true,
-  },
-  transports: ['websocket', 'polling'],
-})
+const app = next({ dev, hostname, port })
+const handle = app.getRequestHandler()
 
-// Auth middleware
-io.use(async (socket, next) => {
-  try {
-    const cookieHeader = socket.handshake.headers.cookie ?? ''
-    const req = {
-      headers: { cookie: cookieHeader },
-      cookies: Object.fromEntries(
-        cookieHeader.split(';').map(c => c.trim().split('=').map(decodeURIComponent))
-      ),
-    } as Parameters<typeof getToken>[0]['req']
-
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET! })
-    if (!token?.userId) return next(new Error('Unauthorized'))
-
-    const user = await prisma.user.findUnique({
-      where: { id: token.userId as string },
-      select: { id: true, role: true, isBanned: true },
-    })
-    if (!user || user.isBanned) return next(new Error('Unauthorized'))
-
-    socket.data.userId = user.id
-    socket.data.role = user.role
-    next()
-  } catch {
-    next(new Error('Unauthorized'))
-  }
-})
-
-io.on('connection', async (socket) => {
-  const userId = socket.data.userId as string
-
-  // Auto-join user's channels
-  const memberships = await prisma.channelMember.findMany({ where: { userId }, select: { channelId: true } })
-  for (const m of memberships) await socket.join(`channel:${m.channelId}`)
-  await socket.join(`user:${userId}`)
-
-  // Presence
-  await prisma.user.update({ where: { id: userId }, data: { status: 'ONLINE', lastSeenAt: new Date() } })
-  io.emit('presence:update', { userId, status: 'ONLINE' })
-
-  socket.on('message:send', async (data: { channelId: string; content: string }) => {
-    const { channelId, content } = data
-    // Content will be further sanitized on the client before rendering
-    const message = await prisma.message.create({
-      data: { content, authorId: userId, channelId },
-      include: {
-        author: { select: { id: true, name: true, displayName: true, avatarUrl: true, role: true } },
-        attachments: true, reactions: true,
-      },
-    })
-    io.to(`channel:${channelId}`).emit('message:new', { message })
+app.prepare().then(() => {
+  const httpServer = createServer((req, res) => {
+    const parsedUrl = parse(req.url!, true)
+    handle(req, res, parsedUrl)
   })
 
-  socket.on('message:edit', async (data: { messageId: string; content: string }) => {
-    const msg = await prisma.message.findUnique({ where: { id: data.messageId } })
-    if (!msg || (msg.authorId !== userId && !['ADMIN', 'MODERATOR'].includes(socket.data.role))) return
-    await prisma.message.update({ where: { id: data.messageId }, data: { content: data.content, isEdited: true } })
-    io.to(`channel:${msg.channelId}`).emit('message:edit', { messageId: data.messageId, content: data.content, editedAt: new Date() })
+  const io = new Server(httpServer, {
+    cors: {
+      origin: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
+      credentials: true,
+    },
+    transports: ['websocket', 'polling'],
   })
 
-  socket.on('message:delete', async (data: { messageId: string }) => {
-    const msg = await prisma.message.findUnique({ where: { id: data.messageId } })
-    if (!msg || (msg.authorId !== userId && !['ADMIN', 'MODERATOR'].includes(socket.data.role))) return
-    await prisma.message.update({ where: { id: data.messageId }, data: { isDeleted: true } })
-    io.to(`channel:${msg.channelId}`).emit('message:delete', { messageId: data.messageId })
-  })
+  // Auth middleware
+  io.use(async (socket, next) => {
+    try {
+      const cookieHeader = socket.handshake.headers.cookie ?? ''
+      const req = {
+        headers: { cookie: cookieHeader },
+        cookies: Object.fromEntries(
+          cookieHeader.split(';').map(c => c.trim().split('=').map(decodeURIComponent))
+        ),
+      } as Parameters<typeof getToken>[0]['req']
 
-  socket.on('reaction:toggle', async (data: { messageId: string; emoji: string }) => {
-    const { messageId, emoji } = data
-    const msg = await prisma.message.findUnique({ where: { id: messageId } })
-    if (!msg) return
-    const existing = await prisma.reaction.findUnique({
-      where: { emoji_messageId_userId: { emoji, messageId, userId } },
-    })
-    if (existing) {
-      await prisma.reaction.delete({ where: { id: existing.id } })
-    } else {
-      await prisma.reaction.create({ data: { emoji, messageId, userId } })
+      const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET! })
+      if (!token?.userId) return next(new Error('Unauthorized'))
+
+      const user = await prisma.user.findUnique({
+        where: { id: token.userId as string },
+        select: { id: true, role: true, isBanned: true },
+      })
+      if (!user || user.isBanned) return next(new Error('Unauthorized'))
+
+      socket.data.userId = user.id
+      socket.data.role = user.role
+      next()
+    } catch {
+      next(new Error('Unauthorized'))
     }
-    const count = await prisma.reaction.count({ where: { messageId, emoji } })
-    io.to(`channel:${msg.channelId}`).emit(existing ? 'reaction:remove' : 'reaction:add', { messageId, emoji, userId, count })
   })
 
-  socket.on('typing:start', async ({ channelId }: { channelId: string }) => {
-    const user = await prisma.user.findUnique({ where: { id: userId }, select: { displayName: true, name: true } })
-    socket.to(`channel:${channelId}`).emit('typing:start', { userId, channelId, userName: user?.displayName ?? user?.name ?? '' })
-  })
+  io.on('connection', async (socket) => {
+    const userId = socket.data.userId as string
 
-  socket.on('typing:stop', ({ channelId }: { channelId: string }) => {
-    socket.to(`channel:${channelId}`).emit('typing:stop', { userId, channelId })
-  })
+    // Auto-join user's channels
+    const memberships = await prisma.channelMember.findMany({ where: { userId }, select: { channelId: true } })
+    for (const m of memberships) await socket.join(`channel:${m.channelId}`)
+    await socket.join(`user:${userId}`)
 
-  socket.on('presence:update', async ({ status }: { status: string }) => {
-    await prisma.user.update({ where: { id: userId }, data: { status: status as 'ONLINE' | 'AWAY' | 'DND' | 'OFFLINE' } })
-    io.emit('presence:update', { userId, status })
-  })
+    // Presence: mark online
+    await prisma.user.update({ where: { id: userId }, data: { status: 'ONLINE', lastSeenAt: new Date() } })
+    io.emit('presence:update', { userId, status: 'ONLINE' })
 
-  socket.on('dm:send', async ({ receiverId, content }: { receiverId: string; content: string }) => {
-    const dm = await prisma.directMessage.create({
-      data: { content, senderId: userId, receiverId },
-      include: { sender: { select: { id: true, name: true, displayName: true, avatarUrl: true } } },
+    socket.on('message:send', async (data: { channelId: string; content: string }) => {
+      const { channelId, content } = data
+      const message = await prisma.message.create({
+        data: { content, authorId: userId, channelId },
+        include: {
+          author: { select: { id: true, name: true, displayName: true, avatarUrl: true, role: true } },
+          attachments: true, reactions: true,
+        },
+      })
+      io.to(`channel:${channelId}`).emit('message:new', { message })
     })
-    io.to(`user:${receiverId}`).emit('dm:new', { dm })
-    socket.emit('dm:new', { dm })
+
+    socket.on('message:edit', async (data: { messageId: string; content: string }) => {
+      const msg = await prisma.message.findUnique({ where: { id: data.messageId } })
+      if (!msg || (msg.authorId !== userId && !['ADMIN', 'MODERATOR'].includes(socket.data.role))) return
+      await prisma.message.update({ where: { id: data.messageId }, data: { content: data.content, isEdited: true } })
+      io.to(`channel:${msg.channelId}`).emit('message:edit', { messageId: data.messageId, content: data.content, editedAt: new Date() })
+    })
+
+    socket.on('message:delete', async (data: { messageId: string }) => {
+      const msg = await prisma.message.findUnique({ where: { id: data.messageId } })
+      if (!msg || (msg.authorId !== userId && !['ADMIN', 'MODERATOR'].includes(socket.data.role))) return
+      await prisma.message.update({ where: { id: data.messageId }, data: { isDeleted: true } })
+      io.to(`channel:${msg.channelId}`).emit('message:delete', { messageId: data.messageId })
+    })
+
+    socket.on('reaction:toggle', async (data: { messageId: string; emoji: string }) => {
+      const { messageId, emoji } = data
+      const msg = await prisma.message.findUnique({ where: { id: messageId } })
+      if (!msg) return
+      const existing = await prisma.reaction.findUnique({
+        where: { emoji_messageId_userId: { emoji, messageId, userId } },
+      })
+      if (existing) {
+        await prisma.reaction.delete({ where: { id: existing.id } })
+      } else {
+        await prisma.reaction.create({ data: { emoji, messageId, userId } })
+      }
+      const count = await prisma.reaction.count({ where: { messageId, emoji } })
+      io.to(`channel:${msg.channelId}`).emit(existing ? 'reaction:remove' : 'reaction:add', { messageId, emoji, userId, count })
+    })
+
+    socket.on('typing:start', async ({ channelId }: { channelId: string }) => {
+      const user = await prisma.user.findUnique({ where: { id: userId }, select: { displayName: true, name: true } })
+      socket.to(`channel:${channelId}`).emit('typing:start', { userId, channelId, userName: user?.displayName ?? user?.name ?? '' })
+    })
+
+    socket.on('typing:stop', ({ channelId }: { channelId: string }) => {
+      socket.to(`channel:${channelId}`).emit('typing:stop', { userId, channelId })
+    })
+
+    socket.on('presence:update', async ({ status }: { status: string }) => {
+      await prisma.user.update({ where: { id: userId }, data: { status: status as 'ONLINE' | 'AWAY' | 'DND' | 'OFFLINE' } })
+      io.emit('presence:update', { userId, status })
+    })
+
+    socket.on('dm:send', async ({ receiverId, content }: { receiverId: string; content: string }) => {
+      const dm = await prisma.directMessage.create({
+        data: { content, senderId: userId, receiverId },
+        include: { sender: { select: { id: true, name: true, displayName: true, avatarUrl: true } } },
+      })
+      io.to(`user:${receiverId}`).emit('dm:new', { dm })
+      socket.emit('dm:new', { dm })
+    })
+
+    socket.on('disconnect', async () => {
+      await prisma.user.update({ where: { id: userId }, data: { status: 'OFFLINE', lastSeenAt: new Date() } })
+      io.emit('presence:update', { userId, status: 'OFFLINE' })
+    })
   })
 
-  socket.on('disconnect', async () => {
-    await prisma.user.update({ where: { id: userId }, data: { status: 'OFFLINE', lastSeenAt: new Date() } })
-    io.emit('presence:update', { userId, status: 'OFFLINE' })
+  httpServer.listen(port, hostname, () => {
+    console.log(`> Pi-Chat ready on http://${hostname}:${port}`)
+    console.log(`> Socket.io attached to same server`)
   })
 })
-
-const PORT = parseInt(process.env.SOCKET_PORT ?? '3001')
-httpServer.listen(PORT, () => console.log(`Socket.io server running on :${PORT}`))
 ```
 
 - [ ] **Step 3: Create `tsconfig.server.json`**
@@ -194,7 +215,7 @@ httpServer.listen(PORT, () => console.log(`Socket.io server running on :${PORT}`
   "compilerOptions": {
     "module": "CommonJS",
     "moduleResolution": "node",
-    "outDir": "dist",
+    "outDir": "dist/server",
     "target": "ES2020",
     "strict": true
   },
@@ -207,17 +228,20 @@ httpServer.listen(PORT, () => console.log(`Socket.io server running on :${PORT}`
 ```json
 {
   "scripts": {
-    "dev": "concurrently \"next dev\" \"ts-node --project tsconfig.server.json server/socket-server.ts\"",
-    "socket": "ts-node --project tsconfig.server.json server/socket-server.ts"
+    "dev": "ts-node --project tsconfig.server.json server/index.ts",
+    "build": "next build",
+    "start": "NODE_ENV=production node dist/server/index.js"
   }
 }
 ```
+
+> **Note:** In dev, `ts-node` runs `server/index.ts` which boots Next.js dev server + Socket.io together. In production, the Dockerfile compiles `server/index.ts` → `dist/server/index.js` and runs it with `node`.
 
 - [ ] **Step 5: Commit**
 
 ```bash
 git add server/ tsconfig.server.json package.json
-git commit -m "feat: add Socket.io standalone server with auth middleware and all events"
+git commit -m "feat: add combined Next.js + Socket.io custom server on single port"
 ```
 
 ---
@@ -341,7 +365,7 @@ let socket: Socket | null = null
 
 export function getSocket(): Socket {
   if (!socket) {
-    socket = io(process.env.NEXT_PUBLIC_SOCKET_URL ?? 'http://localhost:3001', {
+    socket = io(process.env.NEXT_PUBLIC_SOCKET_URL ?? 'http://localhost:3000', {
       withCredentials: true,
       transports: ['websocket', 'polling'],
       reconnection: true,
@@ -1215,7 +1239,7 @@ git commit -m "feat: add TypingIndicator and MessageComposer with Tiptap editor"
 
 - [ ] **Step 1: Add `poll:create` socket event to socket server**
 
-In `server/socket-server.ts`, add inside the `io.on('connection')` handler:
+In `server/index.ts`, add inside the `io.on('connection')` handler:
 
 ```typescript
 socket.on('poll:create', async ({ channelId, question, options }: { channelId: string; question: string; options: string[] }) => {
@@ -1399,7 +1423,7 @@ poll?: {
 - [ ] **Step 5: Commit**
 
 ```bash
-git add components/messaging/PollCard.tsx app/api/polls/ server/socket-server.ts hooks/useMessages.ts
+git add components/messaging/PollCard.tsx app/api/polls/ server/index.ts hooks/useMessages.ts
 git commit -m "feat: add polls with /poll slash command, PollCard, voting, and real-time updates"
 ```
 
@@ -1407,7 +1431,7 @@ git commit -m "feat: add polls with /poll slash command, PollCard, voting, and r
 
 ## Phase 3 Completion Checklist
 
-- [ ] Socket server starts on port 3001 (`npm run socket`)
+- [ ] Combined server starts on port 3000 (`npm run dev`) and Socket.io is accessible at `/socket.io/`
 - [ ] Sending a message appears in MessageList in real-time across two browser sessions
 - [ ] Typing indicator appears when typing and clears after 3s idle or on send
 - [ ] Reactions toggle correctly and persist on page reload
