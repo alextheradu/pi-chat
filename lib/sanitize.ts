@@ -3,12 +3,13 @@
 // ALL message HTML must pass through sanitizeMessageHtml() before rendering.
 // Never pass raw user content to dangerouslySetInnerHTML directly.
 
-let dompurify: ReturnType<typeof import('dompurify').default> | null = null
+let dompurify: DOMPurify.DOMPurifyI | null = null
 
-function getDOMPurify() {
+function getDOMPurify(): DOMPurify.DOMPurifyI | null {
   if (typeof window === 'undefined') return null
   if (!dompurify) {
-    const createDOMPurify = require('dompurify') as typeof import('dompurify')
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const createDOMPurify = require('dompurify') as (win: Window) => DOMPurify.DOMPurifyI
     dompurify = createDOMPurify(window)
   }
   return dompurify
