@@ -3,6 +3,8 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { MobileNav } from '@/components/layout/MobileNav'
+import { AppShell } from '@/components/layout/AppShell'
+import { SearchModal } from '@/components/shared/SearchModal'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -36,7 +38,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const dms: never[] = []
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: 'var(--bg-base)', overflow: 'hidden' }}>
+    <AppShell currentUserId={user.id} currentUserRole={user.role} currentUserName={user.displayName ?? user.name}>
       <Sidebar
         channels={channels}
         dms={dms}
@@ -52,6 +54,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         {children}
       </main>
       <MobileNav />
-    </div>
+      <SearchModal />
+    </AppShell>
   )
 }
