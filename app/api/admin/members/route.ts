@@ -22,6 +22,7 @@ export async function PATCH(req: NextRequest) {
     await prisma.user.update({ where: { id: userId }, data: { isBanned: false } })
     await prisma.auditLog.create({ data: { actorId: session.user.id, action: 'MEMBER_UNBANNED', targetType: 'User', targetId: userId } })
   } else if (action === 'approve') {
+    if (!hasPermission(session.user.role, 'member:ban')) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     await prisma.user.update({ where: { id: userId }, data: { isApproved: true } })
     await prisma.auditLog.create({ data: { actorId: session.user.id, action: 'MEMBER_APPROVED', targetType: 'User', targetId: userId } })
   }

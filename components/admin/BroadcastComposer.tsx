@@ -11,7 +11,7 @@ export function BroadcastComposer() {
         <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8 }}>Message</div>
         <textarea placeholder="Write your announcement..." rows={6} style={{ width: '100%', background: 'var(--bg-base)', border: '1px solid var(--border-default)', borderRadius: 6, padding: '8px 12px', color: 'var(--text-primary)', fontSize: 14, resize: 'vertical', fontFamily: 'var(--font-sans)', boxSizing: 'border-box' }} />
         <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
-          <button style={{ background: 'var(--yellow)', color: 'var(--text-inverse)', border: 'none', borderRadius: 6, padding: '8px 20px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+          <button disabled title="Broadcast sending coming in Phase 6" style={{ background: 'var(--yellow)', color: 'var(--text-inverse)', border: 'none', borderRadius: 6, padding: '8px 20px', cursor: 'not-allowed', display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600, opacity: 0.5 }}>
             <Send size={14} /> Send Broadcast
           </button>
         </div>

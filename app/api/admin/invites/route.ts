@@ -25,7 +25,8 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   const session = await auth()
   if (!session?.user?.id || !hasPermission(session.user.role, 'member:invite_guest')) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  const { inviteId } = await req.json() as { inviteId: string }
+  const inviteId = req.nextUrl.searchParams.get('inviteId')
+  if (!inviteId) return NextResponse.json({ error: 'inviteId required' }, { status: 400 })
   await prisma.invite.delete({ where: { id: inviteId } })
   return NextResponse.json({ ok: true })
 }
