@@ -7,6 +7,7 @@ import { Smile, Reply, Pin, Pencil, Trash2 } from 'lucide-react'
 import type { Role } from '@prisma/client'
 import { UserAvatar } from '@/components/shared/UserAvatar'
 import { MessageReactions } from './MessageReactions'
+import { PollCard } from './PollCard'
 import { sanitizeMessageHtml, highlightMentions } from '@/lib/sanitize'
 import type { Message } from '@/hooks/useMessages'
 
@@ -79,7 +80,16 @@ export function MessageItem({ message, isGrouped, currentUserId, currentUserRole
           dangerouslySetInnerHTML={{ __html: safeHtml }}
         />
         {reactions.length > 0 && <MessageReactions reactions={reactions} onReact={(emoji) => onReact(message.id, emoji)} />}
-        {/* TODO Task 9: {message.poll && <PollCard pollId={message.poll.id} question={message.poll.question} options={message.poll.options} currentUserId={currentUserId} isAnonymous={message.poll.isAnonymous} endsAt={message.poll.endsAt} />} */}
+        {message.poll && (
+          <PollCard
+            pollId={message.poll.id}
+            question={message.poll.question}
+            options={message.poll.options}
+            currentUserId={currentUserId}
+            isAnonymous={message.poll.isAnonymous}
+            endsAt={message.poll.endsAt}
+          />
+        )}
       </div>
 
       {hovered && (
