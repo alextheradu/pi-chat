@@ -2,7 +2,9 @@ import { notFound, redirect } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { ChannelHeader } from '@/components/channels/ChannelHeader'
-import { SkeletonMessageList } from '@/components/shared/SkeletonMessage'
+import { MessageList } from '@/components/messaging/MessageList'
+import { MessageComposer } from '@/components/messaging/MessageComposer'
+import { TypingIndicator } from '@/components/messaging/TypingIndicator'
 
 interface ChannelPageProps {
   params: Promise<{ id: string }>
@@ -30,8 +32,16 @@ export default async function ChannelPage({ params }: ChannelPageProps) {
         isAnnouncement={channel.isAnnouncement}
         currentUserRole={session.user.role}
       />
-      <div style={{ flex: 1, overflow: 'hidden' }}>
-        <SkeletonMessageList />
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <MessageList
+          channelId={id}
+          currentUserId={session.user.id}
+          currentUserRole={session.user.role}
+          currentUserName={session.user.name ?? ''}
+          onReply={() => {}}
+        />
+        <TypingIndicator typingText="" />
+        <MessageComposer channelId={id} placeholder={`Message #${channel.name}...`} />
       </div>
     </div>
   )
