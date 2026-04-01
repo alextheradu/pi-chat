@@ -39,10 +39,14 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ task }, { status: 201 })
 }
 
+const VALID_STATUSES: TaskStatus[] = ['TODO', 'IN_PROGRESS', 'BLOCKED', 'DONE']
+
 export async function PATCH(req: NextRequest) {
   const session = await auth()
   if (!session?.user?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!hasPermission(session.user.role, 'task:create')) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   const { id, status } = await req.json() as { id: string; status: TaskStatus }
+  if (!VALID_STATUSES.includes(status)) return NextResponse.json({ error: 'Invalid status' }, { status: 400 })
   const task = await prisma.task.update({ where: { id }, data: { status } })
   return NextResponse.json({ task })
 }

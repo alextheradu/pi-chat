@@ -8,13 +8,14 @@ export function PushSubscribeButton() {
   const [loading, setLoading] = useState(false)
 
   const subscribe = async () => {
-    if (!('serviceWorker' in navigator) || !('PushManager' in window)) return
+    const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+    if (!('serviceWorker' in navigator) || !('PushManager' in window) || !vapidKey) return
     setLoading(true)
     try {
       const reg = await navigator.serviceWorker.ready
       const sub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+        applicationServerKey: vapidKey,
       })
       await fetch('/api/push/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(sub.toJSON()) })
       setSubscribed(true)
