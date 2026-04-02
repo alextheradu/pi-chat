@@ -1,0 +1,49 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],""]
+6:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T741,<h1 id="routes-and-pages">Routes and Pages</h1><p>This document covers the current route surface.</p>
+<h2 id="public-pages">Public pages</h2><ul>
+<li><code>/site</code>: open source website route</li>
+<li><code>/docs</code>: docs index</li>
+<li><code>/docs/[slug]</code>: public markdown docs</li>
+<li><code>/login</code>: team login page</li>
+</ul>
+<h2 id="protected-pages">Protected pages</h2><ul>
+<li><code>/</code>: authenticated workspace entry</li>
+<li><code>/integrations</code>: incoming webhook management</li>
+<li><code>/channel/[id]</code>: channel view</li>
+<li><code>/dm/[id]</code>: direct message view</li>
+<li><code>/tasks</code>: task board</li>
+<li><code>/settings</code>: user settings</li>
+</ul>
+<p>Additional protected product routes are expected later as more of the app shell is implemented.</p>
+<h2 id="api-routes">API routes</h2><ul>
+<li><code>/api/auth/[...nextauth]</code><ul>
+<li>NextAuth route handler for login and callbacks</li>
+</ul>
+</li>
+<li><code>/api/health</code><ul>
+<li>checks Postgres and MinIO connectivity</li>
+</ul>
+</li>
+<li><code>/api/integrations/webhooks</code><ul>
+<li><code>GET</code>: list current webhooks and channels for an authorized operator</li>
+<li><code>POST</code>: create a new incoming webhook</li>
+</ul>
+</li>
+<li><code>/api/integrations/webhooks/[id]</code><ul>
+<li><code>DELETE</code>: revoke a webhook</li>
+</ul>
+</li>
+<li><code>/api/hooks/[token]</code><ul>
+<li><code>POST</code>: accept message delivery from an external application</li>
+</ul>
+</li>
+</ul>
+<h2 id="route-protection">Route protection</h2><p><code>proxy.ts</code> keeps the public surface small. App pages outside the known public routes require an authenticated user session.</p>
+<h2 id="docs-behavior">Docs behavior</h2><p>The docs pages are static markdown-backed pages generated from files in <code>docs/site/</code>.</p>
+0:{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"docs-shell","children":[["$","aside",null,{"className":"docs-sidebar","children":["$","div",null,{"className":"docs-sidebar-sticky","children":[["$","$L2",null,{"href":"/docs/","className":"docs-brand-link","children":["Pi-Chat"," Docs"]}],["$","p",null,{"className":"docs-sidebar-copy","children":"Public project documentation, setup details, and operational guidance."}],["$","nav",null,{"aria-label":"Documentation","children":[["$","div","getting-started",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Getting Started"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","overview",{"children":["$","$L2",null,{"href":"/docs/overview","className":"docs-nav-link","children":"Overview"}]}],["$","li","getting-started",{"children":["$","$L2",null,{"href":"/docs/getting-started","className":"docs-nav-link","children":"Installation"}]}],["$","li","configuration",{"children":["$","$L2",null,{"href":"/docs/configuration","className":"docs-nav-link","children":"Configuration"}]}]]}]]}],["$","div","deployment",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Deployment"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","self-hosting",{"children":["$","$L2",null,{"href":"/docs/self-hosting","className":"docs-nav-link","children":"Self-Hosting"}]}],["$","li","operations",{"children":["$","$L2",null,{"href":"/docs/operations","className":"docs-nav-link","children":"Operations"}]}]]}]]}],["$","div","features",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Features"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","authentication",{"children":["$","$L2",null,{"href":"/docs/authentication","className":"docs-nav-link","children":"Authentication"}]}],["$","li","integrations-and-bots",{"children":["$","$L2",null,{"href":"/docs/integrations-and-bots","className":"docs-nav-link","children":"Integrations and Bots"}]}]]}]]}],["$","div","reference",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Reference"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","architecture",{"children":["$","$L2",null,{"href":"/docs/architecture","className":"docs-nav-link","children":"Architecture"}]}],["$","li","data-model",{"children":["$","$L2",null,{"href":"/docs/data-model","className":"docs-nav-link","children":"Data Model"}]}],["$","li","routes-and-pages",{"children":["$","$L2",null,{"href":"/docs/routes-and-pages","className":"docs-nav-link docs-nav-link-active","children":"Routes and Pages"}]}],["$","li","repository-tour",{"children":["$","$L2",null,{"href":"/docs/repository-tour","className":"docs-nav-link","children":"Repository Structure"}]}]]}]]}],["$","div","project",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Project"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","roadmap",{"children":["$","$L2",null,{"href":"/docs/roadmap","className":"docs-nav-link","children":"Roadmap"}]}]]}]]}]]}]]}]}],["$","section",null,{"className":"docs-main","children":[["$","header",null,{"className":"docs-page-header","children":[["$","p",null,{"className":"docs-page-eyebrow","children":"Documentation"}],["$","h1",null,{"className":"docs-page-title","children":"Routes and Pages"}],["$","p",null,{"className":"docs-page-description","children":"Public routes, protected app routes, API endpoints, and route protection middleware."}]]}],["$","article",null,{"className":"docs-article","children":["$","div",null,{"className":"docs-markdown","dangerouslySetInnerHTML":{"__html":"$3"}}]}]]}],"$L4"]}],null,"$L5"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"dnc-Cwlkqr0CBmEWzSl8f"}
+4:["$","aside",null,{"className":"docs-toc","children":["$","div",null,{"className":"docs-toc-sticky","children":[["$","h2",null,{"className":"docs-toc-title","children":"Table of contents"}],["$","ul",null,{"className":"docs-toc-list","children":[["$","li","public-pages",{"children":["$","a",null,{"href":"#public-pages","className":"docs-toc-link","children":"Public pages"}]}],["$","li","protected-pages",{"children":["$","a",null,{"href":"#protected-pages","className":"docs-toc-link","children":"Protected pages"}]}],["$","li","api-routes",{"children":["$","a",null,{"href":"#api-routes","className":"docs-toc-link","children":"API routes"}]}],["$","li","route-protection",{"children":["$","a",null,{"href":"#route-protection","className":"docs-toc-link","children":"Route protection"}]}],["$","li","docs-behavior",{"children":["$","a",null,{"href":"#docs-behavior","className":"docs-toc-link","children":"Docs behavior"}]}]]}]]}]}]
+5:["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]
+8:null

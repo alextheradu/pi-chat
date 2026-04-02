@@ -1,0 +1,71 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],""]
+6:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:Tac7,<h1 id="integrations-and-bots">Integrations and Bots</h1><p>The current branch now includes a first integrations slice: incoming webhooks.</p>
+<h2 id="what-exists-today">What exists today</h2><p>The current branch supports:</p>
+<ul>
+<li>webhook creation by authorized operator accounts</li>
+<li>a dedicated bot user per webhook</li>
+<li>channel-targeted message delivery from external applications</li>
+<li>webhook revocation</li>
+</ul>
+<h2 id="management-page">Management page</h2><p>Authorized users can manage webhooks at:</p>
+<ul>
+<li><code>/integrations</code></li>
+</ul>
+<p>Current permission rule:</p>
+<ul>
+<li><code>ADMIN</code> and <code>MODERATOR</code> can manage incoming webhooks</li>
+</ul>
+<h2 id="management-api">Management API</h2><h3 id="list-webhooks">List webhooks</h3><p><code>GET /api/integrations/webhooks</code></p>
+<p>Returns current webhooks and available channels for an authenticated authorized user.</p>
+<h3 id="create-webhook">Create webhook</h3><p><code>POST /api/integrations/webhooks</code></p>
+<p>JSON body:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;Build Alerts&quot;,
+  &quot;description&quot;: &quot;Posts CI results into general&quot;,
+  &quot;channelSlug&quot;: &quot;general&quot;
+}
+</code></pre>
+<p>Response includes:</p>
+<ul>
+<li>created webhook metadata</li>
+<li>one-time secret token</li>
+<li>full webhook URL</li>
+</ul>
+<h3 id="revoke-webhook">Revoke webhook</h3><p><code>DELETE /api/integrations/webhooks/{id}</code></p>
+<p>Revocation prevents any future deliveries from that secret URL.</p>
+<h2 id="incoming-delivery-endpoint">Incoming delivery endpoint</h2><p>External applications post to:</p>
+<p><code>POST /api/hooks/{token}</code></p>
+<p>JSON body:</p>
+<pre><code class="language-json">{
+  &quot;text&quot;: &quot;Deployment complete.&quot;
+}
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li><code>text</code> is required</li>
+<li>text is limited to 4000 characters</li>
+<li>the token URL is the secret</li>
+<li>revoked or unknown tokens return <code>404</code></li>
+</ul>
+<h2 id="example">Example</h2><pre><code class="language-bash">curl -X POST https://your-domain/api/hooks/pichat_wh_your_secret_here \
+  -H &#39;Content-Type: application/json&#39; \
+  -d &#39;{&quot;text&quot;:&quot;Build server says the new image is healthy.&quot;}&#39;
+</code></pre>
+<h2 id="current-limits">Current limits</h2><p>This is intentionally a first slice, not a full app platform. It does not yet include:</p>
+<ul>
+<li>scoped API tokens</li>
+<li>outgoing webhooks</li>
+<li>slash commands</li>
+<li>OAuth app installs</li>
+<li>bot event subscriptions</li>
+<li>granular bot permissions</li>
+<li>message formatting or attachments</li>
+</ul>
+<p>Those can be added later on top of the current webhook foundation.</p>
+0:{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"docs-shell","children":[["$","aside",null,{"className":"docs-sidebar","children":["$","div",null,{"className":"docs-sidebar-sticky","children":[["$","$L2",null,{"href":"/docs/","className":"docs-brand-link","children":["Pi-Chat"," Docs"]}],["$","p",null,{"className":"docs-sidebar-copy","children":"Public project documentation, setup details, and operational guidance."}],["$","nav",null,{"aria-label":"Documentation","children":[["$","div","getting-started",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Getting Started"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","overview",{"children":["$","$L2",null,{"href":"/docs/overview","className":"docs-nav-link","children":"Overview"}]}],["$","li","getting-started",{"children":["$","$L2",null,{"href":"/docs/getting-started","className":"docs-nav-link","children":"Installation"}]}],["$","li","configuration",{"children":["$","$L2",null,{"href":"/docs/configuration","className":"docs-nav-link","children":"Configuration"}]}]]}]]}],["$","div","deployment",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Deployment"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","self-hosting",{"children":["$","$L2",null,{"href":"/docs/self-hosting","className":"docs-nav-link","children":"Self-Hosting"}]}],["$","li","operations",{"children":["$","$L2",null,{"href":"/docs/operations","className":"docs-nav-link","children":"Operations"}]}]]}]]}],["$","div","features",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Features"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","authentication",{"children":["$","$L2",null,{"href":"/docs/authentication","className":"docs-nav-link","children":"Authentication"}]}],["$","li","integrations-and-bots",{"children":["$","$L2",null,{"href":"/docs/integrations-and-bots","className":"docs-nav-link docs-nav-link-active","children":"Integrations and Bots"}]}]]}]]}],["$","div","reference",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Reference"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","architecture",{"children":["$","$L2",null,{"href":"/docs/architecture","className":"docs-nav-link","children":"Architecture"}]}],["$","li","data-model",{"children":["$","$L2",null,{"href":"/docs/data-model","className":"docs-nav-link","children":"Data Model"}]}],["$","li","routes-and-pages",{"children":["$","$L2",null,{"href":"/docs/routes-and-pages","className":"docs-nav-link","children":"Routes and Pages"}]}],["$","li","repository-tour",{"children":["$","$L2",null,{"href":"/docs/repository-tour","className":"docs-nav-link","children":"Repository Structure"}]}]]}]]}],["$","div","project",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Project"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","roadmap",{"children":["$","$L2",null,{"href":"/docs/roadmap","className":"docs-nav-link","children":"Roadmap"}]}]]}]]}]]}]]}]}],["$","section",null,{"className":"docs-main","children":[["$","header",null,{"className":"docs-page-header","children":[["$","p",null,{"className":"docs-page-eyebrow","children":"Documentation"}],["$","h1",null,{"className":"docs-page-title","children":"Integrations and Bots"}],["$","p",null,{"className":"docs-page-description","children":"Incoming webhooks, bot identities, the delivery API, and how external apps post messages."}]]}],["$","article",null,{"className":"docs-article","children":["$","div",null,{"className":"docs-markdown","dangerouslySetInnerHTML":{"__html":"$3"}}]}]]}],"$L4"]}],null,"$L5"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"dnc-Cwlkqr0CBmEWzSl8f"}
+4:["$","aside",null,{"className":"docs-toc","children":["$","div",null,{"className":"docs-toc-sticky","children":[["$","h2",null,{"className":"docs-toc-title","children":"Table of contents"}],["$","ul",null,{"className":"docs-toc-list","children":[["$","li","what-exists-today",{"children":["$","a",null,{"href":"#what-exists-today","className":"docs-toc-link","children":"What exists today"}]}],["$","li","management-page",{"children":["$","a",null,{"href":"#management-page","className":"docs-toc-link","children":"Management page"}]}],["$","li","management-api",{"children":["$","a",null,{"href":"#management-api","className":"docs-toc-link","children":"Management API"}]}],["$","li","list-webhooks",{"children":["$","a",null,{"href":"#list-webhooks","className":"docs-toc-link docs-toc-link-nested","children":"List webhooks"}]}],["$","li","create-webhook",{"children":["$","a",null,{"href":"#create-webhook","className":"docs-toc-link docs-toc-link-nested","children":"Create webhook"}]}],["$","li","revoke-webhook",{"children":["$","a",null,{"href":"#revoke-webhook","className":"docs-toc-link docs-toc-link-nested","children":"Revoke webhook"}]}],["$","li","incoming-delivery-endpoint",{"children":["$","a",null,{"href":"#incoming-delivery-endpoint","className":"docs-toc-link","children":"Incoming delivery endpoint"}]}],["$","li","example",{"children":["$","a",null,{"href":"#example","className":"docs-toc-link","children":"Example"}]}],["$","li","current-limits",{"children":["$","a",null,{"href":"#current-limits","className":"docs-toc-link","children":"Current limits"}]}]]}]]}]}]
+5:["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]
+8:null

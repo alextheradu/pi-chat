@@ -1,0 +1,71 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],""]
+3:I[66357,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"PageTransition"]
+4:I[39756,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+5:I[37457,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+7:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+b:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"ViewportBoundary"]
+d:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"MetadataBoundary"]
+f:I[68027,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default",1]
+:HL["/_next/static/chunks/0b4nbl7~f9--n.css","style"]
+:HL["/_next/static/media/051742360c26797e-s.p.0f97p8c3305p~.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/5c285b27cdda1fe8-s.p.0yo6-5yoeeudq.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"P":null,"c":["","docs","getting-started",""],"q":"","i":false,"f":[[["",{"children":["docs",{"children":[["slug","getting-started","d",null],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",16],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0b4nbl7~f9--n.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/13h-0fd.p-1ga.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/087bxlyk-f7pm.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0d3shmwh5_nmn.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","className":"dm_sans_19525730-module__TxRIUa__variable jetbrains_mono_2e93a1dd-module__styOqW__variable","children":["$","body",null,{"children":[["$","header",null,{"className":"docs-topbar","children":[["$","$L2",null,{"href":"/","className":"docs-topbar-brand","children":"Pi-Chat"}],["$","div",null,{"className":"docs-topbar-links","children":[["$","$L2",null,{"href":"/","className":"docs-topbar-link","children":"Website"}],["$","$L2",null,{"href":"/docs/","className":"docs-topbar-link","children":"Docs"}],["$","a",null,{"href":"https://github.com/alextheradu/pi-chat","target":"_blank","rel":"noreferrer","className":"docs-topbar-link docs-topbar-link-accent","children":"Repository"}]]}]]}],["$","$L3",null,{"children":["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L6",null,["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]]}],{},null,false,null]},null,false,"$@a"]},null,false,"$@a"]},null,false,null],["$","$1","h",{"children":[null,["$","$Lb",null,{"children":"$Lc"}],["$","div",null,{"hidden":true,"children":["$","$Ld",null,{"children":["$","$8",null,{"name":"Next.Metadata","children":"$Le"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],false]],"m":"$undefined","G":["$f",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0b4nbl7~f9--n.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"dnc-Cwlkqr0CBmEWzSl8f"}
+10:[]
+a:"$W10"
+c:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+9:null
+e:[["$","title","0",{"children":"Installation | Pi-Chat Docs"}],["$","meta","1",{"name":"description","content":"Clone the repo, configure your environment, run migrations, and start Pi-Chat locally."}]]
+11:T9e9,<h1 id="getting-started">Getting Started</h1><p>Pi-Chat is an open-source, self-hosted Slack alternative. This page covers what you need to run it locally.</p>
+<h2 id="prerequisites">Prerequisites</h2><ul>
+<li>Node.js 20 or later</li>
+<li>Docker and Docker Compose (for local Postgres and MinIO)</li>
+<li>A Google Cloud project with OAuth credentials</li>
+</ul>
+<h2 id="clone-the-repository">Clone the repository</h2><pre><code class="language-bash">git clone https://github.com/alextheradu/pi-chat.git
+cd pi-chat
+</code></pre>
+<h2 id="install-dependencies">Install dependencies</h2><pre><code class="language-bash">npm install
+</code></pre>
+<h2 id="configure-environment-variables">Configure environment variables</h2><pre><code class="language-bash">cp .env.example .env
+</code></pre>
+<p>Open <code>.env</code> and fill in the required values:</p>
+<pre><code class="language-env"># Database
+DATABASE_URL=&quot;postgresql://user:password@localhost:5432/pichat&quot;
+
+# NextAuth
+NEXTAUTH_URL=&quot;http://localhost:3001&quot;
+NEXTAUTH_SECRET=&quot;your-secret-here&quot;
+
+# Google OAuth
+GOOGLE_CLIENT_ID=&quot;your-client-id&quot;
+GOOGLE_CLIENT_SECRET=&quot;your-client-secret&quot;
+
+# Access policy
+ALLOWED_DOMAIN=&quot;yourteam.org&quot;
+ADMIN_EMAIL=&quot;admin@yourteam.org&quot;
+
+# MinIO / S3 storage
+MINIO_ENDPOINT=&quot;localhost&quot;
+MINIO_PORT=&quot;9000&quot;
+MINIO_ACCESS_KEY=&quot;minioadmin&quot;
+MINIO_SECRET_KEY=&quot;minioadmin&quot;
+MINIO_BUCKET=&quot;pichat&quot;
+</code></pre>
+<h2 id="start-local-services">Start local services</h2><p>Spin up PostgreSQL and MinIO with Docker Compose:</p>
+<pre><code class="language-bash">docker compose -f docker-compose.dev.yml up -d
+</code></pre>
+<h2 id="run-database-migrations">Run database migrations</h2><pre><code class="language-bash">npm run db:migrate:deploy
+</code></pre>
+<h2 id="seed-initial-data">Seed initial data</h2><pre><code class="language-bash">npm run db:seed
+</code></pre>
+<h2 id="start-the-development-server">Start the development server</h2><pre><code class="language-bash">npm run dev
+</code></pre>
+<p>The app starts on <code>http://localhost:3001</code> by default. Open it in a browser and sign in with a Google account that matches <code>ALLOWED_DOMAIN</code>.</p>
+<h2 id="verify-dependencies-are-healthy">Verify dependencies are healthy</h2><pre><code class="language-bash">npm run test:db
+npm run test:minio
+</code></pre>
+<p>Both should report success. If not, check that Docker containers are running and your <code>.env</code> values are correct.</p>
+6:["$","main",null,{"className":"docs-shell","children":[["$","aside",null,{"className":"docs-sidebar","children":["$","div",null,{"className":"docs-sidebar-sticky","children":[["$","$L2",null,{"href":"/docs/","className":"docs-brand-link","children":["Pi-Chat"," Docs"]}],["$","p",null,{"className":"docs-sidebar-copy","children":"Public project documentation, setup details, and operational guidance."}],["$","nav",null,{"aria-label":"Documentation","children":[["$","div","getting-started",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Getting Started"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","overview",{"children":["$","$L2",null,{"href":"/docs/overview","className":"docs-nav-link","children":"Overview"}]}],["$","li","getting-started",{"children":["$","$L2",null,{"href":"/docs/getting-started","className":"docs-nav-link docs-nav-link-active","children":"Installation"}]}],["$","li","configuration",{"children":["$","$L2",null,{"href":"/docs/configuration","className":"docs-nav-link","children":"Configuration"}]}]]}]]}],["$","div","deployment",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Deployment"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","self-hosting",{"children":["$","$L2",null,{"href":"/docs/self-hosting","className":"docs-nav-link","children":"Self-Hosting"}]}],["$","li","operations",{"children":["$","$L2",null,{"href":"/docs/operations","className":"docs-nav-link","children":"Operations"}]}]]}]]}],["$","div","features",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Features"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","authentication",{"children":["$","$L2",null,{"href":"/docs/authentication","className":"docs-nav-link","children":"Authentication"}]}],["$","li","integrations-and-bots",{"children":["$","$L2",null,{"href":"/docs/integrations-and-bots","className":"docs-nav-link","children":"Integrations and Bots"}]}]]}]]}],["$","div","reference",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Reference"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","architecture",{"children":["$","$L2",null,{"href":"/docs/architecture","className":"docs-nav-link","children":"Architecture"}]}],["$","li","data-model",{"children":["$","$L2",null,{"href":"/docs/data-model","className":"docs-nav-link","children":"Data Model"}]}],["$","li","routes-and-pages",{"children":["$","$L2",null,{"href":"/docs/routes-and-pages","className":"docs-nav-link","children":"Routes and Pages"}]}],["$","li","repository-tour",{"children":["$","$L2",null,{"href":"/docs/repository-tour","className":"docs-nav-link","children":"Repository Structure"}]}]]}]]}],["$","div","project",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Project"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","roadmap",{"children":["$","$L2",null,{"href":"/docs/roadmap","className":"docs-nav-link","children":"Roadmap"}]}]]}]]}]]}]]}]}],["$","section",null,{"className":"docs-main","children":[["$","header",null,{"className":"docs-page-header","children":[["$","p",null,{"className":"docs-page-eyebrow","children":"Documentation"}],["$","h1",null,{"className":"docs-page-title","children":"Installation"}],["$","p",null,{"className":"docs-page-description","children":"Clone the repo, configure your environment, run migrations, and start Pi-Chat locally."}]]}],["$","article",null,{"className":"docs-article","children":["$","div",null,{"className":"docs-markdown","dangerouslySetInnerHTML":{"__html":"$11"}}]}]]}],"$L12"]}]
+12:["$","aside",null,{"className":"docs-toc","children":["$","div",null,{"className":"docs-toc-sticky","children":[["$","h2",null,{"className":"docs-toc-title","children":"Table of contents"}],["$","ul",null,{"className":"docs-toc-list","children":[["$","li","prerequisites",{"children":["$","a",null,{"href":"#prerequisites","className":"docs-toc-link","children":"Prerequisites"}]}],["$","li","clone-the-repository",{"children":["$","a",null,{"href":"#clone-the-repository","className":"docs-toc-link","children":"Clone the repository"}]}],["$","li","install-dependencies",{"children":["$","a",null,{"href":"#install-dependencies","className":"docs-toc-link","children":"Install dependencies"}]}],["$","li","configure-environment-variables",{"children":["$","a",null,{"href":"#configure-environment-variables","className":"docs-toc-link","children":"Configure environment variables"}]}],["$","li","start-local-services",{"children":["$","a",null,{"href":"#start-local-services","className":"docs-toc-link","children":"Start local services"}]}],["$","li","run-database-migrations",{"children":["$","a",null,{"href":"#run-database-migrations","className":"docs-toc-link","children":"Run database migrations"}]}],["$","li","seed-initial-data",{"children":["$","a",null,{"href":"#seed-initial-data","className":"docs-toc-link","children":"Seed initial data"}]}],["$","li","start-the-development-server",{"children":["$","a",null,{"href":"#start-the-development-server","className":"docs-toc-link","children":"Start the development server"}]}],["$","li","verify-dependencies-are-healthy",{"children":["$","a",null,{"href":"#verify-dependencies-are-healthy","className":"docs-toc-link","children":"Verify dependencies are healthy"}]}]]}]]}]}]

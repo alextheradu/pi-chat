@@ -1,0 +1,64 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],""]
+6:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T94e,<h1 id="operations">Operations</h1><p>This document covers the current operational commands and checks.</p>
+<h2 id="local-development">Local development</h2><pre><code class="language-bash">npm ci
+docker compose -f docker-compose.dev.yml up -d
+npm run db:migrate:deploy
+npm run db:seed
+npm run dev
+</code></pre>
+<p>Local development defaults to <code>http://localhost:3001</code> unless you override <code>DEV_PORT</code>.</p>
+<h2 id="validation">Validation</h2><pre><code class="language-bash">npm run lint
+npm run typecheck
+npm run build
+npm run test
+</code></pre>
+<h2 id="smoke-tests">Smoke tests</h2><p>The repo includes smoke tests for the live runtime dependencies:</p>
+<pre><code class="language-bash">npm run test:db
+npm run test:minio
+npm run test:health
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li><code>test:db</code> checks the configured PostgreSQL connection.</li>
+<li><code>test:minio</code> checks the configured MinIO connection and bucket addressability.</li>
+<li><code>test:health</code> checks the combined runtime health status for PostgreSQL and MinIO.</li>
+<li>You can point the smoke tests at alternate targets with <code>SMOKE_*</code> overrides such as <code>SMOKE_DATABASE_URL</code> or <code>SMOKE_MINIO_ENDPOINT</code>.</li>
+</ul>
+<h2 id="production-docker">Production Docker</h2><pre><code class="language-bash">docker compose up --build -d
+docker compose ps
+docker compose logs -f app
+</code></pre>
+<h2 id="runtime-startup-order">Runtime startup order</h2><p>The production app container:</p>
+<ol>
+<li>applies migrations</li>
+<li>creates MinIO buckets</li>
+<li>runs idempotent bootstrap seed data</li>
+<li>starts the Next.js server</li>
+</ol>
+<h2 id="health">Health</h2><p>Use:</p>
+<pre><code class="language-bash">curl http://127.0.0.1:3000/api/health
+</code></pre>
+<p>Expected result:</p>
+<ul>
+<li><code>db: ok</code></li>
+<li><code>minio: ok</code></li>
+</ul>
+<h2 id="useful-scripts">Useful scripts</h2><ul>
+<li><code>npm run db:generate</code></li>
+<li><code>npm run db:migrate:deploy</code></li>
+<li><code>npm run db:seed</code></li>
+<li><code>npm run db:seed:runtime</code></li>
+<li><code>npm run storage:init</code></li>
+</ul>
+<h2 id="integration-operations">Integration operations</h2><ul>
+<li>create webhook from <code>/integrations</code></li>
+<li>copy the one-time webhook URL immediately</li>
+<li>revoke and recreate if a secret leaks</li>
+</ul>
+0:{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"docs-shell","children":[["$","aside",null,{"className":"docs-sidebar","children":["$","div",null,{"className":"docs-sidebar-sticky","children":[["$","$L2",null,{"href":"/docs/","className":"docs-brand-link","children":["Pi-Chat"," Docs"]}],["$","p",null,{"className":"docs-sidebar-copy","children":"Public project documentation, setup details, and operational guidance."}],["$","nav",null,{"aria-label":"Documentation","children":[["$","div","getting-started",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Getting Started"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","overview",{"children":["$","$L2",null,{"href":"/docs/overview","className":"docs-nav-link","children":"Overview"}]}],["$","li","getting-started",{"children":["$","$L2",null,{"href":"/docs/getting-started","className":"docs-nav-link","children":"Installation"}]}],["$","li","configuration",{"children":["$","$L2",null,{"href":"/docs/configuration","className":"docs-nav-link","children":"Configuration"}]}]]}]]}],["$","div","deployment",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Deployment"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","self-hosting",{"children":["$","$L2",null,{"href":"/docs/self-hosting","className":"docs-nav-link","children":"Self-Hosting"}]}],["$","li","operations",{"children":["$","$L2",null,{"href":"/docs/operations","className":"docs-nav-link docs-nav-link-active","children":"Operations"}]}]]}]]}],["$","div","features",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Features"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","authentication",{"children":["$","$L2",null,{"href":"/docs/authentication","className":"docs-nav-link","children":"Authentication"}]}],["$","li","integrations-and-bots",{"children":["$","$L2",null,{"href":"/docs/integrations-and-bots","className":"docs-nav-link","children":"Integrations and Bots"}]}]]}]]}],["$","div","reference",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Reference"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","architecture",{"children":["$","$L2",null,{"href":"/docs/architecture","className":"docs-nav-link","children":"Architecture"}]}],["$","li","data-model",{"children":["$","$L2",null,{"href":"/docs/data-model","className":"docs-nav-link","children":"Data Model"}]}],["$","li","routes-and-pages",{"children":["$","$L2",null,{"href":"/docs/routes-and-pages","className":"docs-nav-link","children":"Routes and Pages"}]}],["$","li","repository-tour",{"children":["$","$L2",null,{"href":"/docs/repository-tour","className":"docs-nav-link","children":"Repository Structure"}]}]]}]]}],["$","div","project",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Project"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","roadmap",{"children":["$","$L2",null,{"href":"/docs/roadmap","className":"docs-nav-link","children":"Roadmap"}]}]]}]]}]]}]]}]}],["$","section",null,{"className":"docs-main","children":[["$","header",null,{"className":"docs-page-header","children":[["$","p",null,{"className":"docs-page-eyebrow","children":"Documentation"}],["$","h1",null,{"className":"docs-page-title","children":"Operations"}],["$","p",null,{"className":"docs-page-description","children":"Build, lint, type-check, migrate, seed, Docker commands, and health verification."}]]}],["$","article",null,{"className":"docs-article","children":["$","div",null,{"className":"docs-markdown","dangerouslySetInnerHTML":{"__html":"$3"}}]}]]}],"$L4"]}],null,"$L5"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"dnc-Cwlkqr0CBmEWzSl8f"}
+4:["$","aside",null,{"className":"docs-toc","children":["$","div",null,{"className":"docs-toc-sticky","children":[["$","h2",null,{"className":"docs-toc-title","children":"Table of contents"}],["$","ul",null,{"className":"docs-toc-list","children":[["$","li","local-development",{"children":["$","a",null,{"href":"#local-development","className":"docs-toc-link","children":"Local development"}]}],["$","li","validation",{"children":["$","a",null,{"href":"#validation","className":"docs-toc-link","children":"Validation"}]}],["$","li","smoke-tests",{"children":["$","a",null,{"href":"#smoke-tests","className":"docs-toc-link","children":"Smoke tests"}]}],["$","li","production-docker",{"children":["$","a",null,{"href":"#production-docker","className":"docs-toc-link","children":"Production Docker"}]}],["$","li","runtime-startup-order",{"children":["$","a",null,{"href":"#runtime-startup-order","className":"docs-toc-link","children":"Runtime startup order"}]}],["$","li","health",{"children":["$","a",null,{"href":"#health","className":"docs-toc-link","children":"Health"}]}],["$","li","useful-scripts",{"children":["$","a",null,{"href":"#useful-scripts","className":"docs-toc-link","children":"Useful scripts"}]}],["$","li","integration-operations",{"children":["$","a",null,{"href":"#integration-operations","className":"docs-toc-link","children":"Integration operations"}]}]]}]]}]}]
+5:["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]
+8:null

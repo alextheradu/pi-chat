@@ -1,0 +1,39 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],""]
+6:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+3:T881,<h1 id="project-overview">Project Overview</h1><p>Pi-Chat is an open-source, self-hosted team communication platform. It is a Slack alternative built for teams that want full control over where their data lives and who can access it.</p>
+<h2 id="why-pi-chat-exists">Why Pi-Chat exists</h2><p>Most team chat tools are SaaS. Your messages, files, and history live on someone else&#39;s servers under someone else&#39;s terms. Pi-Chat is built on the premise that a team should be able to run their own workspace, on their own hardware, with no external dependencies at runtime.</p>
+<h2 id="what-pi-chat-ships-today">What Pi-Chat ships today</h2><ul>
+<li>Google OAuth sign-in with domain restriction and invite-based exceptions</li>
+<li>Channel-based team messaging</li>
+<li>Direct messages and group DMs</li>
+<li>Incoming webhooks for external application and bot integrations</li>
+<li>Role-based access control with admin, moderator, member, and guest roles</li>
+<li>Task boards</li>
+<li>File attachment support via MinIO-compatible object storage</li>
+<li>Docker-based production deployment</li>
+<li>Health checks for database and storage</li>
+<li>PWA support</li>
+</ul>
+<h2 id="what-is-still-in-progress">What is still in progress</h2><ul>
+<li>Real-time messaging via a custom Socket.io server (Phase 3)</li>
+<li>Threads and global search (Phase 4)</li>
+<li>Admin dashboard and member management UI (Phase 5)</li>
+<li>Push notifications (Phase 6)</li>
+<li>Native iOS and Android apps via Capacitor (Phase 7)</li>
+</ul>
+<h2 id="who-can-access-a-pi-chat-workspace">Who can access a Pi-Chat workspace</h2><p>Access is not open by default. Sign-in is restricted to Google accounts in a configured domain. People outside that domain need an admin-issued invite. This is by design: Pi-Chat is built for a real team, not a public forum.</p>
+<h2 id="tech-stack">Tech stack</h2><ul>
+<li>Next.js 16 with the App Router</li>
+<li>Prisma 7 with PostgreSQL</li>
+<li>NextAuth v5 with Google OAuth</li>
+<li>MinIO-compatible object storage</li>
+<li>Zustand for client-side state</li>
+<li>Docker for production deployment</li>
+<li>Socket.io planned for the realtime server (Phase 3)</li>
+</ul>
+0:{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"docs-shell","children":[["$","aside",null,{"className":"docs-sidebar","children":["$","div",null,{"className":"docs-sidebar-sticky","children":[["$","$L2",null,{"href":"/docs/","className":"docs-brand-link","children":["Pi-Chat"," Docs"]}],["$","p",null,{"className":"docs-sidebar-copy","children":"Public project documentation, setup details, and operational guidance."}],["$","nav",null,{"aria-label":"Documentation","children":[["$","div","getting-started",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Getting Started"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","overview",{"children":["$","$L2",null,{"href":"/docs/overview","className":"docs-nav-link docs-nav-link-active","children":"Overview"}]}],["$","li","getting-started",{"children":["$","$L2",null,{"href":"/docs/getting-started","className":"docs-nav-link","children":"Installation"}]}],["$","li","configuration",{"children":["$","$L2",null,{"href":"/docs/configuration","className":"docs-nav-link","children":"Configuration"}]}]]}]]}],["$","div","deployment",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Deployment"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","self-hosting",{"children":["$","$L2",null,{"href":"/docs/self-hosting","className":"docs-nav-link","children":"Self-Hosting"}]}],["$","li","operations",{"children":["$","$L2",null,{"href":"/docs/operations","className":"docs-nav-link","children":"Operations"}]}]]}]]}],["$","div","features",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Features"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","authentication",{"children":["$","$L2",null,{"href":"/docs/authentication","className":"docs-nav-link","children":"Authentication"}]}],["$","li","integrations-and-bots",{"children":["$","$L2",null,{"href":"/docs/integrations-and-bots","className":"docs-nav-link","children":"Integrations and Bots"}]}]]}]]}],["$","div","reference",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Reference"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","architecture",{"children":["$","$L2",null,{"href":"/docs/architecture","className":"docs-nav-link","children":"Architecture"}]}],["$","li","data-model",{"children":["$","$L2",null,{"href":"/docs/data-model","className":"docs-nav-link","children":"Data Model"}]}],["$","li","routes-and-pages",{"children":["$","$L2",null,{"href":"/docs/routes-and-pages","className":"docs-nav-link","children":"Routes and Pages"}]}],["$","li","repository-tour",{"children":["$","$L2",null,{"href":"/docs/repository-tour","className":"docs-nav-link","children":"Repository Structure"}]}]]}]]}],["$","div","project",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Project"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","roadmap",{"children":["$","$L2",null,{"href":"/docs/roadmap","className":"docs-nav-link","children":"Roadmap"}]}]]}]]}]]}]]}]}],["$","section",null,{"className":"docs-main","children":[["$","header",null,{"className":"docs-page-header","children":[["$","p",null,{"className":"docs-page-eyebrow","children":"Documentation"}],["$","h1",null,{"className":"docs-page-title","children":"Overview"}],["$","p",null,{"className":"docs-page-description","children":"What Pi-Chat is, why it exists, and what it ships today."}]]}],["$","article",null,{"className":"docs-article","children":["$","div",null,{"className":"docs-markdown","dangerouslySetInnerHTML":{"__html":"$3"}}]}]]}],"$L4"]}],null,"$L5"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"dnc-Cwlkqr0CBmEWzSl8f"}
+4:["$","aside",null,{"className":"docs-toc","children":["$","div",null,{"className":"docs-toc-sticky","children":[["$","h2",null,{"className":"docs-toc-title","children":"Table of contents"}],["$","ul",null,{"className":"docs-toc-list","children":[["$","li","why-pi-chat-exists",{"children":["$","a",null,{"href":"#why-pi-chat-exists","className":"docs-toc-link","children":"Why Pi-Chat exists"}]}],["$","li","what-pi-chat-ships-today",{"children":["$","a",null,{"href":"#what-pi-chat-ships-today","className":"docs-toc-link","children":"What Pi-Chat ships today"}]}],["$","li","what-is-still-in-progress",{"children":["$","a",null,{"href":"#what-is-still-in-progress","className":"docs-toc-link","children":"What is still in progress"}]}],["$","li","who-can-access-a-pi-chat-workspace",{"children":["$","a",null,{"href":"#who-can-access-a-pi-chat-workspace","className":"docs-toc-link","children":"Who can access a Pi-Chat workspace"}]}],["$","li","tech-stack",{"children":["$","a",null,{"href":"#tech-stack","className":"docs-toc-link","children":"Tech stack"}]}]]}]]}]}]
+5:["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]
+8:null

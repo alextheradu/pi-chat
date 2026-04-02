@@ -1,0 +1,82 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],""]
+3:I[66357,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"PageTransition"]
+4:I[39756,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+5:I[37457,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+7:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+b:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"ViewportBoundary"]
+d:I[97367,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"MetadataBoundary"]
+f:I[68027,["/_next/static/chunks/13h-0fd.p-1ga.js","/_next/static/chunks/087bxlyk-f7pm.js","/_next/static/chunks/0d3shmwh5_nmn.js"],"default",1]
+:HL["/_next/static/chunks/0b4nbl7~f9--n.css","style"]
+:HL["/_next/static/media/051742360c26797e-s.p.0f97p8c3305p~.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/5c285b27cdda1fe8-s.p.0yo6-5yoeeudq.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"P":null,"c":["","docs","architecture",""],"q":"","i":false,"f":[[["",{"children":["docs",{"children":[["slug","architecture","d",null],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",16],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0b4nbl7~f9--n.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/13h-0fd.p-1ga.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/087bxlyk-f7pm.js","async":true,"nonce":"$undefined"}],["$","script","script-2",{"src":"/_next/static/chunks/0d3shmwh5_nmn.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","className":"dm_sans_19525730-module__TxRIUa__variable jetbrains_mono_2e93a1dd-module__styOqW__variable","children":["$","body",null,{"children":[["$","header",null,{"className":"docs-topbar","children":[["$","$L2",null,{"href":"/","className":"docs-topbar-brand","children":"Pi-Chat"}],["$","div",null,{"className":"docs-topbar-links","children":[["$","$L2",null,{"href":"/","className":"docs-topbar-link","children":"Website"}],["$","$L2",null,{"href":"/docs/","className":"docs-topbar-link","children":"Docs"}],["$","a",null,{"href":"https://github.com/alextheradu/pi-chat","target":"_blank","rel":"noreferrer","className":"docs-topbar-link docs-topbar-link-accent","children":"Repository"}]]}]]}],["$","$L3",null,{"children":["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":["$L6",null,["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]]}],{},null,false,null]},null,false,"$@a"]},null,false,"$@a"]},null,false,null],["$","$1","h",{"children":[null,["$","$Lb",null,{"children":"$Lc"}],["$","div",null,{"hidden":true,"children":["$","$Ld",null,{"children":["$","$8",null,{"name":"Next.Metadata","children":"$Le"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],false]],"m":"$undefined","G":["$f",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0b4nbl7~f9--n.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]]],"S":true,"h":null,"s":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"dnc-Cwlkqr0CBmEWzSl8f"}
+10:[]
+a:"$W10"
+c:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+9:null
+e:[["$","title","0",{"children":"Architecture | Pi-Chat Docs"}],["$","meta","1",{"name":"description","content":"How the Next.js, Prisma, Postgres, and MinIO layers fit together and handle requests."}]]
+11:Tf45,<h1 id="architecture">Architecture</h1><p>Pi-Chat is a Next.js 16 application using the App Router. It runs a standalone Node server backed by PostgreSQL and MinIO, with NextAuth handling Google OAuth.</p>
+<h2 id="runtime-services">Runtime services</h2><p>A fully running Pi-Chat deployment needs four services:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Next.js standalone server</td>
+<td>Renders the UI and serves API routes</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>Primary database for all user, channel, and message data</td>
+</tr>
+<tr>
+<td>MinIO (or S3)</td>
+<td>Object storage for file attachments</td>
+</tr>
+<tr>
+<td>(Phase 3) Socket.io server</td>
+<td>Realtime event delivery for messaging</td>
+</tr>
+</tbody></table>
+<p>In the current phase, Socket.io is not yet running. The app works without it, but messages are not pushed in real time.</p>
+<h2 id="application-layers">Application layers</h2><h3 id="routing">Routing</h3><p>The App Router is split into route groups:</p>
+<ul>
+<li><code>(public)</code>: login page, public website, and docs. No session required.</li>
+<li><code>(app)</code>: the authenticated workspace shell, channels, DMs, settings.</li>
+<li><code>(auth)</code>: sign-in and OAuth callback handling.</li>
+<li><code>admin</code>: admin dashboard (planned, Phase 5).</li>
+</ul>
+<h3 id="api-routes">API routes</h3><p>All API routes live under <code>app/api/</code>. Key endpoints:</p>
+<ul>
+<li><code>/api/auth/[...nextauth]</code>: NextAuth handler</li>
+<li><code>/api/health</code>: checks Postgres and MinIO connectivity</li>
+<li><code>/api/integrations/webhooks</code>: CRUD for incoming webhooks</li>
+<li><code>/api/hooks/[token]</code>: public endpoint that accepts webhook deliveries from external apps</li>
+</ul>
+<h3 id="data-layer">Data layer</h3><p>Prisma connects to PostgreSQL. The schema is defined in <code>prisma/schema.prisma</code> and versioned through migration files. The Prisma client is a singleton in <code>lib/prisma.ts</code>.</p>
+<h3 id="storage-layer">Storage layer</h3><p>File attachments are stored in a MinIO bucket. The storage client is initialized in <code>lib/minio.ts</code>. The production Docker entrypoint creates required buckets at startup via <code>scripts/init-minio.mjs</code>.</p>
+<h3 id="auth-layer">Auth layer</h3><p>NextAuth v5 handles sign-in through <code>lib/auth.ts</code>. The sign-in callback enforces the domain restriction and invite check before creating a session. See the Authentication doc for the full policy.</p>
+<h3 id="state-management">State management</h3><p>Client-side state is handled with Zustand. Store slices cover channel membership, active channel context, and UI state.</p>
+<h2 id="request-lifecycle">Request lifecycle</h2><ol>
+<li>Browser makes a request.</li>
+<li><code>proxy.ts</code> middleware checks whether the route is public or requires a session.</li>
+<li>Public routes serve immediately. Protected routes redirect unauthenticated users to <code>/login</code>.</li>
+<li>Server Components fetch data from Prisma and pass it to the UI.</li>
+<li>Client Components handle interactions and update Zustand state.</li>
+<li>Mutations go through API routes, which enforce auth and permission checks server-side.</li>
+</ol>
+<h2 id="production-startup-order">Production startup order</h2><p>The Docker entrypoint runs these steps before starting Next.js:</p>
+<ol>
+<li>Apply all pending Prisma migrations</li>
+<li>Create MinIO buckets if they do not exist</li>
+<li>Run idempotent bootstrap seed (admin account, default channel)</li>
+<li>Start the Next.js standalone server</li>
+</ol>
+<h2 id="planned-realtime-server">Planned: realtime server</h2><p>Phase 3 will introduce a custom Node server that mounts both Next.js and Socket.io on the same port. The Socket.io layer will push new messages, reactions, and presence updates to connected clients without polling.</p>
+6:["$","main",null,{"className":"docs-shell","children":[["$","aside",null,{"className":"docs-sidebar","children":["$","div",null,{"className":"docs-sidebar-sticky","children":[["$","$L2",null,{"href":"/docs/","className":"docs-brand-link","children":["Pi-Chat"," Docs"]}],["$","p",null,{"className":"docs-sidebar-copy","children":"Public project documentation, setup details, and operational guidance."}],["$","nav",null,{"aria-label":"Documentation","children":[["$","div","getting-started",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Getting Started"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","overview",{"children":["$","$L2",null,{"href":"/docs/overview","className":"docs-nav-link","children":"Overview"}]}],["$","li","getting-started",{"children":["$","$L2",null,{"href":"/docs/getting-started","className":"docs-nav-link","children":"Installation"}]}],["$","li","configuration",{"children":["$","$L2",null,{"href":"/docs/configuration","className":"docs-nav-link","children":"Configuration"}]}]]}]]}],["$","div","deployment",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Deployment"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","self-hosting",{"children":["$","$L2",null,{"href":"/docs/self-hosting","className":"docs-nav-link","children":"Self-Hosting"}]}],["$","li","operations",{"children":["$","$L2",null,{"href":"/docs/operations","className":"docs-nav-link","children":"Operations"}]}]]}]]}],["$","div","features",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Features"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","authentication",{"children":["$","$L2",null,{"href":"/docs/authentication","className":"docs-nav-link","children":"Authentication"}]}],["$","li","integrations-and-bots",{"children":["$","$L2",null,{"href":"/docs/integrations-and-bots","className":"docs-nav-link","children":"Integrations and Bots"}]}]]}]]}],["$","div","reference",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Reference"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","architecture",{"children":["$","$L2",null,{"href":"/docs/architecture","className":"docs-nav-link docs-nav-link-active","children":"Architecture"}]}],["$","li","data-model",{"children":["$","$L2",null,{"href":"/docs/data-model","className":"docs-nav-link","children":"Data Model"}]}],["$","li","routes-and-pages",{"children":["$","$L2",null,{"href":"/docs/routes-and-pages","className":"docs-nav-link","children":"Routes and Pages"}]}],["$","li","repository-tour",{"children":["$","$L2",null,{"href":"/docs/repository-tour","className":"docs-nav-link","children":"Repository Structure"}]}]]}]]}],["$","div","project",{"className":"docs-nav-section","children":[["$","h2",null,{"className":"docs-nav-heading","children":"Project"}],["$","ul",null,{"className":"docs-nav-list","children":[["$","li","roadmap",{"children":["$","$L2",null,{"href":"/docs/roadmap","className":"docs-nav-link","children":"Roadmap"}]}]]}]]}]]}]]}]}],["$","section",null,{"className":"docs-main","children":[["$","header",null,{"className":"docs-page-header","children":[["$","p",null,{"className":"docs-page-eyebrow","children":"Documentation"}],["$","h1",null,{"className":"docs-page-title","children":"Architecture"}],["$","p",null,{"className":"docs-page-description","children":"How the Next.js, Prisma, Postgres, and MinIO layers fit together and handle requests."}]]}],["$","article",null,{"className":"docs-article","children":["$","div",null,{"className":"docs-markdown","dangerouslySetInnerHTML":{"__html":"$11"}}]}]]}],"$L12"]}]
+12:["$","aside",null,{"className":"docs-toc","children":["$","div",null,{"className":"docs-toc-sticky","children":[["$","h2",null,{"className":"docs-toc-title","children":"Table of contents"}],["$","ul",null,{"className":"docs-toc-list","children":[["$","li","runtime-services",{"children":["$","a",null,{"href":"#runtime-services","className":"docs-toc-link","children":"Runtime services"}]}],["$","li","application-layers",{"children":["$","a",null,{"href":"#application-layers","className":"docs-toc-link","children":"Application layers"}]}],["$","li","routing",{"children":["$","a",null,{"href":"#routing","className":"docs-toc-link docs-toc-link-nested","children":"Routing"}]}],["$","li","api-routes",{"children":["$","a",null,{"href":"#api-routes","className":"docs-toc-link docs-toc-link-nested","children":"API routes"}]}],["$","li","data-layer",{"children":["$","a",null,{"href":"#data-layer","className":"docs-toc-link docs-toc-link-nested","children":"Data layer"}]}],["$","li","storage-layer",{"children":["$","a",null,{"href":"#storage-layer","className":"docs-toc-link docs-toc-link-nested","children":"Storage layer"}]}],["$","li","auth-layer",{"children":["$","a",null,{"href":"#auth-layer","className":"docs-toc-link docs-toc-link-nested","children":"Auth layer"}]}],["$","li","state-management",{"children":["$","a",null,{"href":"#state-management","className":"docs-toc-link docs-toc-link-nested","children":"State management"}]}],["$","li","request-lifecycle",{"children":["$","a",null,{"href":"#request-lifecycle","className":"docs-toc-link","children":"Request lifecycle"}]}],["$","li","production-startup-order",{"children":["$","a",null,{"href":"#production-startup-order","className":"docs-toc-link","children":"Production startup order"}]}],["$","li","planned-realtime-server",{"children":["$","a",null,{"href":"#planned-realtime-server","className":"docs-toc-link","children":"Planned: realtime server"}]}]]}]]}]}]
