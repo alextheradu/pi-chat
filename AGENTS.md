@@ -34,8 +34,8 @@ Pi-Chat is a production-grade, self-hosted Slack replacement for FRC Team 1676. 
 
 ## Non-Negotiables
 
-- Keep the team-specific domain model: `@pascack.org` is the default allowed sign-in domain, with invite-based exceptions.
-- Preserve the bootstrap admin behavior for `aradu28@pascack.org` unless explicitly told otherwise.
+- Keep the team-specific domain model: `@example.com` is the default allowed sign-in domain, with invite-based exceptions.
+- Preserve the bootstrap admin behavior for `john@example.com` unless explicitly told otherwise.
 - Preserve the "Precision Dark" visual direction: black/gray base, yellow accent, no blue/purple/navy UI chrome.
 - Prefer App Router patterns and keep client boundaries narrow; default to server components unless interactivity requires a client component.
 - Treat auth, permissions, sanitization, uploads, and admin access as security-critical code.

@@ -34,7 +34,7 @@ async function main() {
   }
 
   // 2. Upsert bootstrap admin
-  const adminEmail = process.env.ADMIN_EMAIL ?? 'aradu28@pascack.org'
+  const adminEmail = process.env.ADMIN_EMAIL ?? 'john@example.com'
   const admin = await prisma.user.upsert({
     where: { email: adminEmail },
     update: { role: Role.ADMIN, isApproved: true },

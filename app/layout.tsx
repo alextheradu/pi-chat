@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import { JetBrains_Mono, DM_Sans } from 'next/font/google'
+
+import { projectConfig } from '@/lib/project-config'
+import { themeConfig } from '@/lib/theme-config'
+import { ThemeVars } from '@/components/ThemeVars'
+
 import './globals.css'
 import { Providers } from './providers'
 
@@ -16,12 +21,12 @@ const dmSans = DM_Sans({
 })
 
 export const viewport: Viewport = {
-  themeColor: '#f5c518',
+  themeColor: themeConfig.accentColor,
 }
 
 export const metadata: Metadata = {
-  title: 'Pi-Chat — Team 1676',
-  description: 'FRC Team 1676 · The Pascack Pi-oneers communication hub',
+  title: `${projectConfig.appName} | ${projectConfig.teamName}`,
+  description: `${projectConfig.teamName} communication hub`,
   manifest: '/manifest.json',
 }
 
@@ -36,6 +41,9 @@ export default function RootLayout({
       className={`${jetbrainsMono.variable} ${dmSans.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <ThemeVars />
+      </head>
       <body style={{ background: 'var(--bg-base)' }}>
         <Providers>{children}</Providers>
       </body>

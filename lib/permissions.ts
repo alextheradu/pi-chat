@@ -18,6 +18,7 @@ export const PERMISSIONS = {
   'admin:view_moderator':           ['ADMIN', 'MODERATOR'],
   'admin:audit:read':               ['ADMIN', 'MODERATOR'],
   'admin:announcements:broadcast':  ['ADMIN', 'MODERATOR'],
+  'integration:webhook:manage':     ['ADMIN', 'MODERATOR'],
   'task:create':                    ['ADMIN', 'MODERATOR', 'SUBDIVISION_LEAD', 'MEMBER'],
   'task:assign:any':                ['ADMIN', 'MODERATOR', 'SUBDIVISION_LEAD'],
   'task:assign:self':               ['ADMIN', 'MODERATOR', 'SUBDIVISION_LEAD', 'MEMBER'],

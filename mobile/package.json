@@ -1,0 +1,40 @@
+{
+  "name": "teamchat-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev":         "vite",
+    "build":       "tsc && vite build",
+    "cap:sync":    "npm run build && npx cap sync",
+    "cap:ios":     "npm run cap:sync && npx cap open ios",
+    "cap:android": "npm run cap:sync && npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android":            "^6.2.0",
+    "@capacitor/app":                "^6.0.2",
+    "@capacitor/camera":             "^6.0.2",
+    "@capacitor/core":               "^6.2.0",
+    "@capacitor/ios":                "^6.2.0",
+    "@capacitor/keyboard":           "^6.0.2",
+    "@capacitor/preferences":        "^6.0.3",
+    "@capacitor/push-notifications": "^6.0.2",
+    "@capacitor/status-bar":         "^6.0.2",
+    "@codetrix-studio/capacitor-google-auth": "^3.4.0",
+    "@tanstack/react-query":         "^5.95.2",
+    "axios":                         "^1.9.0",
+    "jose":                          "^5.10.0",
+    "lucide-react":                  "^1.6.0",
+    "react":                         "^18.3.1",
+    "react-dom":                     "^18.3.1",
+    "socket.io-client":              "^4.8.3",
+    "zustand":                       "^5.0.12"
+  },
+  "devDependencies": {
+    "@capacitor/cli":       "^6.2.0",
+    "@types/react":         "^18.3.18",
+    "@types/react-dom":     "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript":           "^5.8.3",
+    "vite":                 "^5.4.19"
+  }
+}

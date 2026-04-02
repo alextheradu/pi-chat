@@ -430,7 +430,7 @@ export async function sendInviteEmail({ to, inviteToken, invitedByName, role, ap
   const signInUrl = `${appUrl}/login?invite=${inviteToken}`
 
   await transport.sendMail({
-    from: `"Pi-Chat · Team 1676" <${process.env.SMTP_USER ?? 'noreply@team1676.org'}>`,
+    from: `"Pi-Chat · Team 1676" <${process.env.SMTP_USER ?? 'noreply@example.com'}>`,
     to,
     subject: `${invitedByName} invited you to Pi-Chat — Team 1676`,
     text: [
@@ -512,7 +512,7 @@ export async function POST(req: NextRequest) {
         inviteToken: invite.token,
         invitedByName: invite.invitedBy.displayName ?? invite.invitedBy.name,
         role,
-        appUrl: process.env.NEXT_PUBLIC_APP_URL ?? 'https://chat.team1676.org',
+        appUrl: process.env.NEXT_PUBLIC_APP_URL ?? 'https://chat.example.com',
       })
     } catch (err) {
       console.error('Failed to send invite email:', err)

@@ -21,6 +21,7 @@ model User {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   lastSeenAt    DateTime?
+  theme         Theme      @default(DARK)
 
   channelMemberships  ChannelMember[]
   messages            Message[]
@@ -37,6 +38,9 @@ model User {
   pinnedMessages      PinnedMessage[]    @relation("PinnedBy")
   subdivisionMembers  SubdivisionMember[]
   invitesSent         Invite[]
+  webhooksCreated     IncomingWebhook[]  @relation("WebhookCreatedBy")
+  botWebhook          IncomingWebhook?   @relation("WebhookBotUser")
+  mobilePushTokens    MobilePushToken[]
 }
 
 enum Role {
@@ -45,6 +49,12 @@ enum Role {
   SUBDIVISION_LEAD
   MEMBER
   GUEST
+}
+
+enum Theme {
+  DARK
+  LIGHT
+  SYSTEM
 }
 
 enum UserStatus {
@@ -70,6 +80,7 @@ model Channel {
   members        ChannelMember[]
   messages       Message[]
   pinnedMessages PinnedMessage[]
+  incomingWebhooks IncomingWebhook[]
   subdivision    Subdivision?    @relation(fields: [subdivisionId], references: [id])
 }
 
@@ -333,6 +344,28 @@ model Invite {
   invitedBy   User      @relation(fields: [invitedById], references: [id])
 }
 
+model IncomingWebhook {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  channelId    String
+  createdById  String
+  botUserId    String   @unique
+  tokenHash    String   @unique
+  tokenPreview String
+  isRevoked    Boolean  @default(false)
+  lastUsedAt   DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  channel      Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  createdBy    User     @relation("WebhookCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  botUser      User     @relation("WebhookBotUser", fields: [botUserId], references: [id], onDelete: Restrict)
+
+  @@index([channelId])
+  @@index([createdById])
+}
+
 model PushSubscription {
   id        String   @id @default(cuid())
   userId    String
@@ -355,4 +388,14 @@ model AuditLog {
   createdAt  DateTime @default(now())
 
   actor      User     @relation(fields: [actorId], references: [id])
+}
+
+model MobilePushToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  platform  String   // 'ios' | 'android'
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

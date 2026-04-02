@@ -1,0 +1,16 @@
+{
+  "name": "Pi-Chat",
+  "short_name": "Pi-Chat",
+  "description": "Self-hosted team chat for FRC Team 1676.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0e",
+  "theme_color": "#f5c518",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

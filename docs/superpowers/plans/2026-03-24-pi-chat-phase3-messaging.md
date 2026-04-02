@@ -4,7 +4,7 @@
 
 **Goal:** Build the full real-time messaging system — Socket.io server, MessageList with virtualization, MessageItem with rich content rendering (DOMPurify-sanitized), MessageComposer with Tiptap, TypingIndicator, and Reactions.
 
-**Architecture:** Socket.io is combined with Next.js in a single custom Node.js server (`server/index.ts`) running on port 3000 (mapped to 3014 in production). No separate socket server or port — both Next.js requests and WebSocket upgrades are handled by the same `http.Server`. Nginx Proxy Manager proxies `chat.team1676.org` → port 3014 with WebSocket support enabled. Next.js uses REST for initial message load (cursor pagination via TanStack Query). Socket.io pushes all real-time events. The client socket singleton reconnects automatically and falls back to polling on disconnect.
+**Architecture:** Socket.io is combined with Next.js in a single custom Node.js server (`server/index.ts`) running on port 3000 (mapped to 3014 in production). No separate socket server or port — both Next.js requests and WebSocket upgrades are handled by the same `http.Server`. Nginx Proxy Manager proxies `chat.example.com` → port 3014 with WebSocket support enabled. Next.js uses REST for initial message load (cursor pagination via TanStack Query). Socket.io pushes all real-time events. The client socket singleton reconnects automatically and falls back to polling on disconnect.
 
 **Security:** All user-generated HTML is sanitized with DOMPurify before rendering. The `dangerouslySetInnerHTML` prop is only ever called with DOMPurify-cleaned strings. Zero XSS risk from message content.
 
@@ -59,7 +59,7 @@ npm install --save-dev @types/node
 // server/index.ts
 // Combined Next.js + Socket.io custom server.
 // Binds to PORT (default 3000). In production, mapped to external port 3014.
-// Nginx Proxy Manager proxies chat.team1676.org → :3014 with WebSocket support.
+// Nginx Proxy Manager proxies chat.example.com → :3014 with WebSocket support.
 
 import { createServer } from 'http'
 import { parse } from 'url'

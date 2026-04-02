@@ -2,14 +2,15 @@ import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { prisma } from '@/lib/prisma'
+import { projectConfig } from '@/lib/project-config'
 import { Role } from '@prisma/client'
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? 'aradu28@pascack.org'
-const ALLOWED_DOMAIN = process.env.ALLOWED_DOMAIN ?? 'pascack.org'
+const ADMIN_EMAIL = projectConfig.adminEmail
+const ALLOWED_DOMAIN = projectConfig.allowedDomain
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma as any),
-  // jwt strategy required — without it, PrismaAdapter defaults to database
+  adapter: PrismaAdapter(prisma),
+  // JWT strategy is required. Without it, PrismaAdapter defaults to database
   // sessions and the jwt/session callbacks are never invoked
   session: { strategy: 'jwt' },
   providers: [
@@ -27,7 +28,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       const existing = await prisma.user.findUnique({ where: { email } })
       if (existing?.isBanned) return '/login?error=BANNED'
 
-      // Allow @pascack.org domain
+      // Allow the configured primary sign-in domain
       if (email.endsWith(`@${ALLOWED_DOMAIN}`)) {
         const isAdmin = email === ADMIN_EMAIL
         await prisma.user.upsert({
@@ -73,7 +74,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         },
       })
 
-      // Consume invite — mark as used
+      // Consume invite and mark it as used
       await prisma.invite.update({
         where: { id: invite.id },
         data: { usedAt: new Date() },

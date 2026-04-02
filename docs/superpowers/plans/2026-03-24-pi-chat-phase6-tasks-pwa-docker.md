@@ -634,7 +634,7 @@ git commit -m "feat: add push notifications with VAPID and subscription API"
 - Create: `.env` (gitignored, local values)
 - Create: `.env.example` (committed, template)
 
-> **Architecture:** Single `app` service on external port **3014** (internal 3000). No separate socket service — Socket.io is combined with Next.js in `server/index.ts`. No nginx container — Nginx Proxy Manager (NPM) running externally handles TLS + proxying for `chat.team1676.org` → `localhost:3014`. Enable "WebSocket Support" in NPM's proxy host settings.
+> **Architecture:** Single `app` service on external port **3014** (internal 3000). No separate socket service — Socket.io is combined with Next.js in `server/index.ts`. No nginx container — Nginx Proxy Manager (NPM) running externally handles TLS + proxying for `chat.example.com` → `localhost:3014`. Enable "WebSocket Support" in NPM's proxy host settings.
 
 - [ ] **Step 1: Create `docker/Dockerfile`** (multi-stage, builds custom server)
 
@@ -689,7 +689,7 @@ CMD ["node", "dist/server/index.js"]
 ```yaml
 # docker-compose.yml — Production deployment
 # No nginx container — NPM handles TLS and proxying.
-# NPM proxy host: chat.team1676.org → http://localhost:3014 (WebSocket Support: ON)
+# NPM proxy host: chat.example.com → http://localhost:3014 (WebSocket Support: ON)
 
 services:
   app:
@@ -757,7 +757,7 @@ volumes:
 
 ```env
 # ── Next.js ────────────────────────────────────────────────────
-NEXTAUTH_URL=https://chat.team1676.org
+NEXTAUTH_URL=https://chat.example.com
 NEXTAUTH_SECRET=                         # openssl rand -base64 32
 
 # ── Google OAuth ───────────────────────────────────────────────
@@ -781,16 +781,16 @@ MINIO_BUCKET_AVATARS=pi-chat-avatars
 # ── Web Push ───────────────────────────────────────────────────
 VAPID_PUBLIC_KEY=
 VAPID_PRIVATE_KEY=
-VAPID_SUBJECT=mailto:admin@team1676.org
+VAPID_SUBJECT=mailto:admin@example.com
 NEXT_PUBLIC_VAPID_PUBLIC_KEY=
 
 # ── Socket.io (same origin as Next.js) ────────────────────────
-NEXT_PUBLIC_SOCKET_URL=https://chat.team1676.org
+NEXT_PUBLIC_SOCKET_URL=https://chat.example.com
 
 # ── App config ─────────────────────────────────────────────────
-NEXT_PUBLIC_APP_URL=https://chat.team1676.org
-ADMIN_EMAIL=aradu28@pascack.org
-ALLOWED_DOMAIN=pascack.org
+NEXT_PUBLIC_APP_URL=https://chat.example.com
+ADMIN_EMAIL=john@example.com
+ALLOWED_DOMAIN=example.com
 NODE_ENV=production
 
 # ── SMTP (optional, for invite emails) ────────────────────────
@@ -798,7 +798,7 @@ SMTP_HOST=
 SMTP_PORT=587
 SMTP_USER=
 SMTP_PASS=
-SMTP_FROM=noreply@team1676.org
+SMTP_FROM=noreply@example.com
 ```
 
 - [ ] **Step 4: Create `.env`** (gitignored, fill in real values)
@@ -829,7 +829,7 @@ Expected: App accessible at `http://localhost:3014`. Navigate to `http://localho
 - [ ] **Step 6: Nginx Proxy Manager setup**
 
 In NPM, create a proxy host:
-- Domain: `chat.team1676.org`
+- Domain: `chat.example.com`
 - Forward Hostname/IP: `<docker host IP>` (or `host.docker.internal` if NPM is in Docker)
 - Forward Port: `3014`
 - **WebSocket Support: ON** ← required for Socket.io
@@ -855,7 +855,7 @@ git commit -m "feat: add multi-stage Dockerfile and production docker-compose (p
 - [ ] `docker compose up --build app` builds and starts the app container on port 3014
 - [ ] Push subscription endpoint saves to DB
 - [ ] `.env` is gitignored, `.env.example` is committed
-- [ ] NPM proxy host for `chat.team1676.org` → port 3014 with WebSocket Support enabled
+- [ ] NPM proxy host for `chat.example.com` → port 3014 with WebSocket Support enabled
 - [ ] Socket.io connects at same origin — no separate socket port needed
 - [ ] `npm run build` passes with zero TypeScript errors
 
@@ -869,8 +869,8 @@ git commit -m "feat: add multi-stage Dockerfile and production docker-compose (p
 - [ ] Phase 4: DMs, Threads, Search ✓
 - [ ] Phase 5: Admin Dashboard ✓
 - [ ] Phase 6: Tasks, PWA, Docker ✓
-- [ ] `@pascack.org` domain restriction works
-- [ ] `aradu28@pascack.org` is auto-promoted to ADMIN
+- [ ] `@example.com` domain restriction works
+- [ ] `john@example.com` is auto-promoted to ADMIN
 - [ ] All HTML from user messages is DOMPurify-sanitized
 - [ ] Zero `any` types, zero `ts-ignore` in the codebase
 - [ ] All icon-only buttons have `aria-label`

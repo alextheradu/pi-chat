@@ -4,7 +4,7 @@
 
 **Goal:** Stand up the fully working Next.js 15 project with PostgreSQL, Prisma ORM, NextAuth v5 Google OAuth, and the Login page — everything needed before building UI.
 
-**Architecture:** Next.js 15 App Router with `output: 'standalone'` for Docker. Prisma manages the schema and migrations. NextAuth v5 enforces `@pascack.org` domain restriction and auto-promotes `aradu28@pascack.org` to ADMIN. The Login page is the first visual touchpoint.
+**Architecture:** Next.js 15 App Router with `output: 'standalone'` for Docker. Prisma manages the schema and migrations. NextAuth v5 enforces `@example.com` domain restriction and auto-promotes `john@example.com` to ADMIN. The Login page is the first visual touchpoint.
 
 **Tech Stack:** Next.js 15, TypeScript strict, Tailwind CSS v4, shadcn/ui, Prisma 5, PostgreSQL 16 (Docker), NextAuth.js v5, Framer Motion, lucide-react, DM Sans + JetBrains Mono fonts
 
@@ -292,7 +292,7 @@ git commit -m "feat: add design system CSS variables, fonts, and shadcn/ui compo
 
 ```env
 # ── Next.js ────────────────────────────────────────────────────
-NEXTAUTH_URL=https://chat.team1676.org
+NEXTAUTH_URL=https://chat.example.com
 NEXTAUTH_SECRET=                         # openssl rand -base64 32
 
 # ── Google OAuth ───────────────────────────────────────────────
@@ -316,17 +316,17 @@ MINIO_BUCKET_AVATARS=pi-chat-avatars
 # ── Web Push ───────────────────────────────────────────────────
 VAPID_PUBLIC_KEY=
 VAPID_PRIVATE_KEY=
-VAPID_SUBJECT=mailto:admin@team1676.org
+VAPID_SUBJECT=mailto:admin@example.com
 NEXT_PUBLIC_VAPID_PUBLIC_KEY=
 
 # ── Socket.io (same origin as Next.js — no separate port) ──────
-# In dev: http://localhost:3000  |  In prod: https://chat.team1676.org
+# In dev: http://localhost:3000  |  In prod: https://chat.example.com
 NEXT_PUBLIC_SOCKET_URL=http://localhost:3000
 
 # ── App config ─────────────────────────────────────────────────
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-ADMIN_EMAIL=aradu28@pascack.org
-ALLOWED_DOMAIN=pascack.org
+ADMIN_EMAIL=john@example.com
+ALLOWED_DOMAIN=example.com
 NODE_ENV=development
 ```
 
@@ -827,7 +827,7 @@ async function main() {
   }
 
   // 2. Upsert bootstrap admin
-  const adminEmail = process.env.ADMIN_EMAIL ?? 'aradu28@pascack.org'
+  const adminEmail = process.env.ADMIN_EMAIL ?? 'john@example.com'
   const admin = await prisma.user.upsert({
     where: { email: adminEmail },
     update: { role: Role.ADMIN, isApproved: true },
@@ -1004,8 +1004,8 @@ import { PrismaAdapter } from '@auth/prisma-adapter'
 import { prisma } from '@/lib/prisma'
 import { Role } from '@prisma/client'
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? 'aradu28@pascack.org'
-const ALLOWED_DOMAIN = process.env.ALLOWED_DOMAIN ?? 'pascack.org'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? 'john@example.com'
+const ALLOWED_DOMAIN = process.env.ALLOWED_DOMAIN ?? 'example.com'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -1024,7 +1024,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       const existing = await prisma.user.findUnique({ where: { email } })
       if (existing?.isBanned) return '/login?error=BANNED'
 
-      // Allow @pascack.org domain
+      // Allow @example.com domain
       if (email.endsWith(`@${ALLOWED_DOMAIN}`)) {
         // Ensure user record exists and set approval
         await prisma.user.upsert({
@@ -1342,9 +1342,9 @@ git commit -m "feat: add MinIO client and /api/health endpoint"
 - [ ] `npm run build` succeeds with zero TypeScript errors
 - [ ] `http://localhost:3000/login` renders with correct dark theme and yellow accent
 - [ ] Google OAuth redirects correctly
-- [ ] `@pascack.org` user can sign in and is created in DB with `isApproved: true`
-- [ ] `aradu28@pascack.org` gets `ADMIN` role on first sign in
-- [ ] Non-`@pascack.org` email without invite is rejected to `/login?error=UNAUTHORIZED`
+- [ ] `@example.com` user can sign in and is created in DB with `isApproved: true`
+- [ ] `john@example.com` gets `ADMIN` role on first sign in
+- [ ] Non-`@example.com` email without invite is rejected to `/login?error=UNAUTHORIZED`
 - [ ] `/api/health` returns `{"status":"ok",...}`
 - [ ] All migrations applied cleanly
 - [ ] Seed data present in DB (10 channels, 7 subdivisions, 1 admin)
