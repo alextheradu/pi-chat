@@ -9,6 +9,7 @@ A web version (and probably more updated) docs are available at [pi-chat.org](ht
 ## Table Of Contents
 
 - [Overview](#overview)
+- [Public Docs](#public-docs)
 - [Repo Split](#repo-split)
 - [What Ships Today](#what-ships-today)
 - [What Is Planned](#what-is-planned)
@@ -27,6 +28,16 @@ A web version (and probably more updated) docs are available at [pi-chat.org](ht
 ## Overview
 
 This repository is aimed at teams that want a Slack-style system they can self-host and control. The product intent includes channels, DMs, threads, moderation, tasks, uploads, PWA support, and a combined Next.js plus Socket.io runtime. The current branch implements the secure foundation, the authenticated app shell, and the first external integration slice.
+
+## Public Docs
+
+The public website and docs for Pi-Chat live in the separate site project:
+
+- public site: https://pi-chat.org/
+- docs index: https://pi-chat.org/docs/
+- site repo: [../pi-chat-site](/srv/md0/robotics/pi-chat-site)
+
+If you want to update the public docs, submit a pull request against the site repo. Do not add public docs pages in this app repo.
 
 ## Repo Split
 
