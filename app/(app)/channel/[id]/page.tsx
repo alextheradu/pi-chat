@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { ChannelHeader } from '@/components/channels/ChannelHeader'
-import { SkeletonMessageList } from '@/components/shared/SkeletonMessage'
+import { ChannelView } from '@/components/messaging/ChannelView'
 
 interface ChannelPageProps {
   params: Promise<{ id: string }>
@@ -13,11 +13,8 @@ export default async function ChannelPage({ params }: ChannelPageProps) {
   const session = await auth()
   if (!session?.user?.id) redirect('/login')
 
-  const channel = await prisma.channel.findUnique({
-    where: { id },
-    include: { subdivision: true },
-  })
-  if (!channel || channel.isArchived) notFound()
+  const channel = await prisma.channel.findUnique({ where: { id }, include: { subdivision: true } })
+  if (!channel) notFound()
 
   const membership = await prisma.channelMember.findUnique({
     where: { userId_channelId: { userId: session.user.id, channelId: id } },
@@ -33,10 +30,13 @@ export default async function ChannelPage({ params }: ChannelPageProps) {
         isAnnouncement={channel.isAnnouncement}
         currentUserRole={session.user.role}
       />
-      <div style={{ flex: 1, overflow: 'hidden' }}>
-        {/* Phase 3: MessageList goes here */}
-        <SkeletonMessageList />
-      </div>
+      <ChannelView
+        channelId={id}
+        currentUserId={session.user.id}
+        currentUserRole={session.user.role}
+        currentUserName={session.user.name ?? ''}
+        channelName={channel.name}
+      />
     </div>
   )
 }

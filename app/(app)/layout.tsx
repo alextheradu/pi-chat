@@ -1,8 +1,12 @@
 import { redirect } from 'next/navigation'
+
+import { MobileNav } from '@/components/layout/MobileNav'
+import { AppShell } from '@/components/layout/AppShell'
+import { Sidebar } from '@/components/layout/Sidebar'
+import { InstallPrompt } from '@/components/pwa/InstallPrompt'
+import { SearchModal } from '@/components/shared/SearchModal'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { Sidebar } from '@/components/layout/Sidebar'
-import { MobileNav } from '@/components/layout/MobileNav'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -33,17 +37,40 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       subdivision: m.channel.subdivision,
     }))
 
-  // Phase 3: populate DMs from DB
-  const dms: never[] = []
+  const dmsRaw = await prisma.directMessage.findMany({
+    where: { OR: [{ senderId: user.id }, { receiverId: user.id }] },
+    orderBy: { createdAt: 'desc' },
+    include: {
+      sender: { select: { id: true, name: true, displayName: true, avatarUrl: true, status: true } },
+      receiver: { select: { id: true, name: true, displayName: true, avatarUrl: true, status: true } },
+    },
+  })
+
+  const seenDMs = new Set<string>()
+  const dms = dmsRaw
+    .filter((dm) => {
+      const otherId = dm.senderId === user.id ? dm.receiverId : dm.senderId
+      if (seenDMs.has(otherId)) return false
+      seenDMs.add(otherId)
+      return true
+    })
+    .map((dm) => {
+      const otherUser = dm.senderId === user.id ? dm.receiver : dm.sender
+      return {
+        id: otherUser.id,
+        userId: otherUser.id,
+        name: otherUser.displayName ?? otherUser.name,
+        avatarUrl: otherUser.avatarUrl,
+        status: otherUser.status,
+        unreadCount: 0,
+      }
+    })
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        height: '100vh',
-        background: 'var(--bg-base)',
-        overflow: 'hidden',
-      }}
+    <AppShell
+      currentUserId={user.id}
+      currentUserRole={user.role}
+      currentUserName={user.displayName ?? user.name}
     >
       <Sidebar
         channels={channels}
@@ -56,12 +83,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           role: user.role,
         }}
       />
-      <main
-        style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}
-      >
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
         {children}
       </main>
       <MobileNav />
-    </div>
+      <SearchModal />
+      <InstallPrompt />
+    </AppShell>
   )
 }

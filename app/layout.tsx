@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import { JetBrains_Mono, DM_Sans } from 'next/font/google'
 
+import { ThemeVars } from '@/components/ThemeVars'
 import { projectConfig } from '@/lib/project-config'
 import { themeConfig } from '@/lib/theme-config'
-import { ThemeVars } from '@/components/ThemeVars'
 
 import './globals.css'
 import { Providers } from './providers'
@@ -43,6 +43,10 @@ export default function RootLayout({
     >
       <head>
         <ThemeVars />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
       <body style={{ background: 'var(--bg-base)' }}>
         <Providers>{children}</Providers>

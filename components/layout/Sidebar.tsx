@@ -6,7 +6,6 @@ import type { Role, UserStatus } from '@prisma/client'
 import { SidebarChannelItem } from './SidebarChannelItem'
 import { SidebarDMItem } from './SidebarDMItem'
 import { SidebarFooter } from './SidebarFooter'
-import { SearchModal } from '@/components/shared/SearchModal'
 import { useAppStore } from '@/store/app-store'
 import { projectConfig } from '@/lib/project-config'
 
@@ -355,8 +354,6 @@ export function Sidebar({ channels, dms, currentUser }: SidebarProps) {
           role={currentUser.role}
         />
       </nav>
-
-      <SearchModal />
     </>
   )
 }

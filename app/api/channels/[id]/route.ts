@@ -1,26 +1,25 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-interface RouteContext {
-  params: Promise<{ id: string }>
-}
-
-export async function GET(_req: Request, { params }: RouteContext) {
-  const { id } = await params
+export async function GET(_req: NextRequest, ctx: RouteContext<'/api/channels/[id]'>) {
+  const { id } = await ctx.params
   const session = await auth()
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  if (!session?.user?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const channel = await prisma.channel.findUnique({
+    where: { id },
+    include: {
+      subdivision: true,
+      _count: { select: { members: true, messages: true } },
+    },
+  })
+  if (!channel) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
   const membership = await prisma.channelMember.findUnique({
     where: { userId_channelId: { userId: session.user.id, channelId: id } },
-    include: { channel: { include: { subdivision: true } } },
   })
+  if (!membership) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
-  if (!membership) {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 })
-  }
-
-  return NextResponse.json({ channel: membership.channel })
+  return NextResponse.json({ channel })
 }

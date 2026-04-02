@@ -1,6 +1,6 @@
 'use client'
 
-import { Hash, Lock, Megaphone, Pin, Search, Users, Settings } from 'lucide-react'
+import { Hash, Lock, Megaphone, Pin, Search, Settings, Users } from 'lucide-react'
 import type { Role } from '@prisma/client'
 
 interface ChannelHeaderProps {
@@ -71,10 +71,10 @@ export function ChannelHeader({
       )}
       <div style={{ marginLeft: 'auto', display: 'flex', gap: 2 }}>
         {[
-          { Icon: Pin, label: 'Pinned messages' },
-          { Icon: Search, label: 'Search in channel' },
-          { Icon: Users, label: 'Member list' },
-        ].map(({ Icon: I, label }) => (
+          { icon: Pin, label: 'Pinned messages' },
+          { icon: Search, label: 'Search in channel' },
+          { icon: Users, label: 'Member list' },
+        ].map(({ icon: ActionIcon, label }) => (
           <button
             key={label}
             aria-label={label}
@@ -91,7 +91,7 @@ export function ChannelHeader({
               color: 'var(--text-muted)',
             }}
           >
-            <I size={15} />
+            <ActionIcon size={15} />
           </button>
         ))}
         {canManage && (
