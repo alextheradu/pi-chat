@@ -26,7 +26,8 @@ const lowlight = createLowlight()
 lowlight.register({ java, python, typescript })
 
 interface MessageComposerProps {
-  channelId: string
+  channelId?: string
+  dmUserId?: string
   threadId?: string
   placeholder?: string
 }
@@ -38,9 +39,9 @@ function parsePollCommand(text: string): { question: string; options: string[] }
   return { question: parts[0]!, options: parts.slice(1) }
 }
 
-export function MessageComposer({ channelId, threadId, placeholder = 'Message...' }: MessageComposerProps) {
+export function MessageComposer({ channelId, dmUserId, threadId, placeholder = 'Message...' }: MessageComposerProps) {
   const { socket } = useSocket()
-  const { startTyping, stopTyping } = useTyping(channelId)
+  const { startTyping, stopTyping } = useTyping(channelId ?? '')
   const editorRef = useRef<Editor | null>(null)
 
   const sendMessage = useCallback(() => {
@@ -49,6 +50,7 @@ export function MessageComposer({ channelId, threadId, placeholder = 'Message...
     const text = editor.getText()
     const poll = parsePollCommand(text)
     if (poll) {
+      if (!channelId) return
       stopTyping()
       socket.emit('poll:create', { channelId, question: poll.question, options: poll.options })
       editor.commands.clearContent()
@@ -56,10 +58,16 @@ export function MessageComposer({ channelId, threadId, placeholder = 'Message...
     }
     const content = editor.getHTML()
     if (!content || content === '<p></p>') return
-    stopTyping()
-    socket.emit('message:send', { channelId, content, threadId })
+    if (channelId) {
+      stopTyping()
+    }
+    if (dmUserId) {
+      socket.emit('dm:send', { receiverId: dmUserId, content })
+    } else if (channelId) {
+      socket.emit('message:send', { channelId, content, ...(threadId ? { threadId } : {}) })
+    }
     editor.commands.clearContent()
-  }, [socket, channelId, threadId, stopTyping])
+  }, [socket, channelId, dmUserId, threadId, stopTyping])
 
   const editor = useEditor({
     extensions: [
@@ -90,7 +98,9 @@ export function MessageComposer({ channelId, threadId, placeholder = 'Message...
     },
     onUpdate: ({ editor: e }) => {
       editorRef.current = e
-      startTyping()
+      if (channelId) {
+        startTyping()
+      }
     },
     onCreate: ({ editor: e }) => {
       editorRef.current = e

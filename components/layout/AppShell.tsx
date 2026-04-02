@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useAppStore } from '@/store/app-store'
 import { MessageThread } from '@/components/messaging/MessageThread'
 import type { Role } from '@prisma/client'
@@ -13,12 +14,8 @@ interface AppShellProps {
 
 export function AppShell({ children, currentUserId, currentUserRole, currentUserName }: AppShellProps) {
   const { threadParentId, setThreadParentId } = useAppStore()
-
-  // Get current channelId from URL — use a simple approach
-  // (thread replies are sent to the current channel)
-  const channelId = typeof window !== 'undefined'
-    ? window.location.pathname.split('/channel/')[1]?.split('/')[0] ?? ''
-    : ''
+  const pathname = usePathname()
+  const channelId = pathname.split('/channel/')[1]?.split('/')[0] ?? ''
 
   return (
     <div style={{ display: 'flex', height: '100vh', background: 'var(--bg-base)', overflow: 'hidden' }}>

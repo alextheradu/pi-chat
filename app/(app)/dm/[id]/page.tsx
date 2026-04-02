@@ -1,9 +1,9 @@
 import { notFound, redirect } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { MessageComposer } from '@/components/messaging/MessageComposer'
 import { UserAvatar } from '@/components/shared/UserAvatar'
 import { PresenceDot } from '@/components/shared/PresenceDot'
+import { DMView } from './DMView'
 
 interface DMPageProps { params: Promise<{ id: string }> }
 
@@ -17,8 +17,6 @@ export default async function DMPage({ params }: DMPageProps) {
     select: { id: true, name: true, displayName: true, avatarUrl: true, status: true },
   })
   if (!otherUser) notFound()
-
-  const conversationId = [session.user.id, otherUserId].sort().join(':')
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -34,10 +32,7 @@ export default async function DMPage({ params }: DMPageProps) {
         </span>
       </header>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
-          DM messages will appear here
-        </div>
-        <MessageComposer channelId={conversationId} placeholder={`Message ${otherUser.displayName ?? otherUser.name}...`} />
+        <DMView otherUserId={otherUser.id} displayName={otherUser.displayName ?? otherUser.name} />
       </div>
     </div>
   )
