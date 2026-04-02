@@ -27,6 +27,7 @@ lowlight.register({ java, python, typescript })
 
 interface MessageComposerProps {
   channelId: string
+  threadId?: string
   placeholder?: string
 }
 
@@ -37,7 +38,7 @@ function parsePollCommand(text: string): { question: string; options: string[] }
   return { question: parts[0]!, options: parts.slice(1) }
 }
 
-export function MessageComposer({ channelId, placeholder = 'Message...' }: MessageComposerProps) {
+export function MessageComposer({ channelId, threadId, placeholder = 'Message...' }: MessageComposerProps) {
   const { socket } = useSocket()
   const { startTyping, stopTyping } = useTyping(channelId)
   const editorRef = useRef<Editor | null>(null)
@@ -56,9 +57,9 @@ export function MessageComposer({ channelId, placeholder = 'Message...' }: Messa
     const content = editor.getHTML()
     if (!content || content === '<p></p>') return
     stopTyping()
-    socket.emit('message:send', { channelId, content })
+    socket.emit('message:send', { channelId, content, ...(threadId ? { threadId } : {}) })
     editor.commands.clearContent()
-  }, [socket, channelId, stopTyping])
+  }, [socket, channelId, threadId, stopTyping])
 
   const editor = useEditor({
     extensions: [

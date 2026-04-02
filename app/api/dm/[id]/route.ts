@@ -30,5 +30,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
   const hasMore = messages.length > limit
   if (hasMore) messages.pop()
-  return NextResponse.json({ messages: messages.reverse(), nextCursor: hasMore ? messages[0]?.id : null })
+  const nextCursor = hasMore ? messages[0]?.id : null  // oldest in batch = first in desc order
+  messages.reverse()  // flip to asc for display
+  return NextResponse.json({ messages, nextCursor })
 }

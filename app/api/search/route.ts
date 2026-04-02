@@ -14,7 +14,13 @@ export async function GET(req: NextRequest) {
   const [messages, channels, people] = await Promise.all([
     type === 'all' || type === 'messages'
       ? prisma.message.findMany({
-          where: { content: { contains: q, mode: 'insensitive' }, isDeleted: false },
+          where: {
+            content: { contains: q, mode: 'insensitive' },
+            isDeleted: false,
+            channel: {
+              members: { some: { userId: session.user.id } },
+            },
+          },
           take: 10,
           include: {
             author: { select: { id: true, name: true, displayName: true, avatarUrl: true } },
