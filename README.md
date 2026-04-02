@@ -2,7 +2,9 @@
 
 Pi-Chat is the self-hosted team chat application. This repo is the actual workspace app, not the public marketing site.
 
-The public website and docs now live in the sibling project at [../pi-chat-site](/srv/md0/robotics/pi-chat-site).
+The public website and docs now live in the sibling project at [/public-site](https://github.com/alextheradu/pi-chat/tree/public-site).
+
+A web version (and probably more updated) docs are available at [pi-chat.org](https://pi-chat.org)
 
 ## Table Of Contents
 
