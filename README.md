@@ -2,8 +2,6 @@
 
 Pi-Chat is the self-hosted team chat application. This repo is the actual workspace app, not the public marketing site.
 
-The public website and docs now live in the sibling project at [/public-site](https://github.com/alextheradu/pi-chat/tree/public-site).
-
 A web version (and probably more updated) docs are available at [pi-chat.org](https://pi-chat.org)
 
 ## Table Of Contents
@@ -35,7 +33,7 @@ The public website and docs for Pi-Chat live in the separate site project:
 
 - public site: https://pi-chat.org/
 - docs index: https://pi-chat.org/docs/
-- site repo: [../pi-chat-site](/srv/md0/robotics/pi-chat-site)
+- site repo: 
 
 If you want to update the public docs, submit a pull request against the site repo. Do not add public docs pages in this app repo.
 
@@ -43,8 +41,8 @@ If you want to update the public docs, submit a pull request against the site re
 
 The project is now split into two separate apps:
 
-- [pi-chat](/srv/md0/robotics/pi-chat): the real chat application, login flow, APIs, database, storage, and workspace UI
-- [pi-chat-site](/srv/md0/robotics/pi-chat-site): the public website and documentation
+- [pi-chat](https://github.com/alextheradu/pi-chat/): the real chat application, login flow, APIs, database, storage, and workspace UI
+- [public-site](https://github.com/alextheradu/pi-chat/tree/public-site): the public website and documentation
 
 That means:
 
@@ -128,7 +126,7 @@ Protected routes:
 - `/settings`
 - `/integrations`
 
-Route access is enforced in [proxy.ts](/srv/md0/robotics/pi-chat/proxy.ts), and sensitive handlers still check auth and permissions server-side.
+Route access is enforced in [proxy.ts](https://github.com/alextheradu/pi-chat/blob/main/proxy.ts), and sensitive handlers still check auth and permissions server-side.
 
 ## Environment Variables
 
@@ -253,10 +251,10 @@ Useful local URLs:
 
 ## Database And Seeding
 
-The schema is defined in [prisma/schema.prisma](/srv/md0/robotics/pi-chat/prisma/schema.prisma). Seed behavior exists in two places:
+The schema is defined in [prisma/schema.prisma](https://github.com/alextheradu/pi-chat/blob/main/prisma/schema.prisma). Seed behavior exists in two places:
 
-- [prisma/seed.ts](/srv/md0/robotics/pi-chat/prisma/seed.ts): development and local bootstrap seed
-- [scripts/seed-production.mjs](/srv/md0/robotics/pi-chat/scripts/seed-production.mjs): idempotent runtime seed used by the Docker entrypoint
+- [prisma/seed.ts](https://github.com/alextheradu/pi-chat/blob/main/prisma/seed.ts): development and local bootstrap seed
+- [scripts/seed-production.mjs](https://github.com/alextheradu/pi-chat/blob/main/scripts/seed-production.mjs): idempotent runtime seed used by the Docker entrypoint
 
 Useful commands:
 
@@ -316,7 +314,7 @@ npm run test:health
 This branch supports two production paths:
 
 - direct Node deployment using `next build` and `next start`
-- Docker Compose deployment using [docker-compose.yml](/srv/md0/robotics/pi-chat/docker-compose.yml)
+- Docker Compose deployment using [docker-compose.yml](https://github.com/alextheradu/pi-chat/blob/main/docker-compose.yml)
 
 The long-term roadmap still calls for a custom combined Next.js and Socket.io server, but that server is not part of this branch yet.
 
@@ -418,7 +416,3 @@ Check that:
 - the token is correct
 - the webhook has not been revoked
 - the app URL used to store or copy the hook is correct
-
-### Public website/docs no longer exist in this repo
-
-That is expected. Use the sibling project at [../pi-chat-site](/srv/md0/robotics/pi-chat-site) for the marketing homepage and docs deployment.
